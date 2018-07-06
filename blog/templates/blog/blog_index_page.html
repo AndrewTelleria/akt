@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+	<h1>{{ page.title }}</h1>
+	{{ page.intro|richtext }}
+	{% for post in blogpages %}
+		{% with post=post.specific %}
+
+			{% with post.main_image as main_image %}
+	            {% if main_image %}{% image main_image fill-160x100 %}{% endif %}
+	        {% endwith %}
+
+			<a href="{% pageurl post %}"><h2>{{ post.title }}</h2></a>
+			<p>{{ post.specific.body|truncatechars:50 }}</p>
+		{% endwith %}
+	{% endfor %}
+{% endblock %}
