@@ -1,5 +1,7 @@
 {% load static wagtailuserbar %}
 
+{% load wagtailcore_tags %}
+
 <!DOCTYPE html>
 <html class="no-js">
     <head>
@@ -25,10 +27,18 @@
         {% endblock %}
     </head>
 
+    
+    
+
     <body class="{% block body_class %}{% endblock %}">
+        {% block navbar %}
+            {% include "includes/nav-bar.html" with parent=site_root calling_page=self %}
+        {% endblock navbar %}
         {% wagtailuserbar %}
 
         {% block content %}{% endblock %}
+
+        {% include "includes/footer.html" %}
 
         {# Global javascript #}
         <script type="text/javascript" src="{% static 'js/portfolio.js' %}"></script>
@@ -36,5 +46,6 @@
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}
         {% endblock %}
+
     </body>
 </html>

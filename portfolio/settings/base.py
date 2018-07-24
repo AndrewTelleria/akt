@@ -26,7 +26,9 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 INSTALLED_APPS = [
     'blog',
     'home',
+    'projects',
     'search',
+    'pipeline',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -83,6 +85,22 @@ TEMPLATES = [
     },
 ]
 
+PIPELINE = {
+    'PIPELINE_ENABLED': True,
+    'JAVASCRIPT': {
+        'stats': {
+            'source_filenames': (
+              'js/portfolio.js',
+            ),
+            'output_filename': 'js/stats.js',
+        }
+    }
+}
+
+PIPELINE['COMPILERS'] = (
+    'pipeline.compilers.es6.ES6Compiler',
+)
+
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
 
@@ -136,7 +154,10 @@ USE_TZ = True
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
 ]
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, 'static'),

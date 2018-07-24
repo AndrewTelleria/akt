@@ -79,17 +79,11 @@ class BlogPage(Page):
     FEATURE_1 = 1
     FEATURE_2 = 2
     FEATURE_3 = 3
-    FEATURE_4 = 4
-    FEATURE_5 = 5
-    FEATURE_6 = 6
     NO_FEATURE = 0
     FEATURE_CHOICES = (
         (FEATURE_1, 'Feature 1'),
         (FEATURE_2, 'Feature 2'),
         (FEATURE_3, 'Feature 3'),
-        (FEATURE_4, 'Feature 4'),
-        (FEATURE_5, 'Feature 5'),
-        (FEATURE_6, 'Feature 6'),
         (NO_FEATURE, 'No feature')
     )
     feature = models.IntegerField(
@@ -112,7 +106,6 @@ class BlogPage(Page):
         help_text='Landscape mode only; horizontal width between 1000px and 3000px.'
     )
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
-    categories = ParentalManyToManyField('blog.BlogCategory', blank=True)
 
     class Meta:
         verbose_name = "blogpage"
@@ -130,7 +123,6 @@ class BlogPage(Page):
         MultiFieldPanel([
             FieldPanel('date'),
             FieldPanel('tags'),
-            FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
         ], heading="Blog information"),
         FieldPanel('intro', classname="full"),
         ImageChooserPanel('image'),
@@ -169,22 +161,6 @@ class BlogTagIndexPage(Page):
 		return context
 
 
-
-@register_snippet
-class BlogCategory(models.Model):
-	name = models.CharField(max_length=255)
-	icon = models.ForeignKey(
-			'wagtailimages.Image', null=True, blank=True,
-			on_delete=models.SET_NULL, related_name='+'
-		)
-
-	panels = [
-		FieldPanel('name'),
-		ImageChooserPanel('icon'),
-	]
-
-	def __str__(self):
-		return self.name
 
 
 

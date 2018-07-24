@@ -1,6 +1,59 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
-    {{ page.body }}
+
+	<canvas></canvas>
+
+	{% image page.image width-1200 as image %}
+
+	<div class="home-header-image" style="background-image: url('{{ image.url }}')"></div>
+
+	<div class="inner-container">
+		<div class="container-hero">
+			{% image page.logo_image width-800 as l_image %}
+			<div class="logo" style="background-image: url('{{ l_image.url }}')"></div>
+			<div class="hero-row">
+				{{ page.hero_cta }}
+			</div>
+		</div>
+
+		<div class="section-1">
+			<h2>{{ page.featured_section_1_title }}</h2>
+			<div class="homepage-skills">
+			</div>
+			<div class="homepage-projects">
+				{% for childpage in pp_features_list %}
+					<a href="{{ childpage.url }}" class="section-1-childpage">
+						{% image childpage.image fill-180x140-c100 %}
+						<h2>{{ childpage.title }}</h2>
+						<p>{{ childpage.intro }}</p>
+					</a>
+				{% endfor %}
+			</div>
+		</div>
+
+		<div class="section-2">
+			<div class="homepage-body">
+				{{ page.body }}
+				{{ page.featured_section_2_title }}
+			</div>
+			<div class="homepage-blog">
+				{% for childpage in bp_features_list %}
+					<a href="{{ childpage.url }}" class="section-2-childpage">
+						{% image childpage.image fill-430x210-c10 %}
+						<h2>{{ childpage.title }}</h2>
+						<p>{{ childpage.intro }}</p>
+					</a>
+				{% endfor %}
+			</div>
+		</div>
+
+		<div class="section-3">
+			<div class="homepage-contact">
+				<a href="{% slugurl 'contact' %}">Contact</a>
+			</div>
+			<a href="{{ page.resume.url }}">Download Resume</a>
+		</div>
+	</div>
 {% endblock %}

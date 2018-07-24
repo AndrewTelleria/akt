@@ -17,15 +17,15 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Collection, Page, Orderable
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
+from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
 from .blocks import BaseStreamBlock
 
-# from projects.models import ProjectPage
+from projects.models import ProjectPage
 from blog.models import BlogPage, BlogPageGalleryImage
-# from photo_gallery.models import PhotoGalleryPage, PhotoGalleryImage
 
 
 
@@ -243,8 +243,17 @@ class HomePage(Page):
     		'three child names.',
     		verbose_name='Featured section 1',
     	)
+    # Resume
+    resume = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     content_panels = Page.content_panels + [
+    	DocumentChooserPanel('resume'),
     	MultiFieldPanel([
     		ImageChooserPanel('image'),
     		ImageChooserPanel('logo_image'),
@@ -278,36 +287,29 @@ class HomePage(Page):
 		], heading="Featured homepage section", classname="collapsible")
     ]
 
+
     def phone_number_fixer(self):
     	HomePage.objects.get("phone_number")
 
-    # def get_context(self, request):
-    # 	context = super(HomePage, self).get_context(request)
-    # 	sp_list = [1, 2, 3, 4]
-    # 	bp_list = [1, 2, 3, 4, 5, 6]
-    # 	pgp_list = [1, 2]
-    # 	sp_objs = ServicePage.objects.all()
-    # 	bp_objs = BlogPage.objects.all()
-    # 	pgp_objs = PhotoGalleryPage.objects.all()
-    # 	for sp in sp_objs:
-    # 		for value in sp_list:
-    # 			if value == sp.feature and sp not in sp_list:
-    # 				sp_list.insert(value-1, sp)
-    # 				sp_list.remove(value)
-    # 	for bp in bp_objs:
-    # 		for value in bp_list:
-    # 			if value == bp.feature and bp not in bp_list:
-    # 				bp_list.insert(value-1, bp)
-    # 				bp_list.remove(value)
-    # 	for pgp in pgp_objs:
-    # 		for value in pgp_list:
-    # 			if value == pgp.feature and pgp not in pgp_list:
-    # 				pgp_list.insert(value-1, pgp)
-    # 				pgp_list.remove(value)
-    # 	context['sp_features_list'] = sp_list
-    # 	context['bp_features_list'] = bp_list
-    # 	context['pgp_features_list'] = pgp_list
-    # 	return context
+    def get_context(self, request):
+    	context = super(HomePage, self).get_context(request)
+    	pp_list = [1, 2, 3]
+    	bp_list = [1, 2, 3]
+    	pp_objs = ProjectPage.objects.all()
+    	bp_objs = BlogPage.objects.all()
+    	for pp in pp_objs:
+    		for value in pp_list:
+    			if value == pp.feature and pp not in pp_list:
+    				pp_list.insert(value-1, pp)
+    				pp_list.remove(value)
+    	for bp in bp_objs:
+    		for value in bp_list:
+    			if value == bp.feature and bp not in bp_list:
+    				bp_list.insert(value-1, bp)
+    				bp_list.remove(value)
+    	context['pp_features_list'] = pp_list
+    	context['bp_features_list'] = bp_list
+    	return context
 
     def __str__(self):
     	return self.title
