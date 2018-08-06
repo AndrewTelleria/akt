@@ -180,9 +180,3 @@ WAGTAIL_SITE_NAME = "portfolio"
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
 
-
-ALLOWED_HOSTS = ['portfolio-env.qkwxmxpt4x.us-west-2.elasticbeanstalk.com']
-
-
-
-
