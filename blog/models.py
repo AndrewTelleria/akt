@@ -110,6 +110,9 @@ class BlogPage(Page):
     class Meta:
         verbose_name = "blogpage"
 
+    def main_image(self):
+        return self.image
+
     search_fields = Page.search_fields + [
         index.SearchField('author'),
         index.SearchField('intro'),

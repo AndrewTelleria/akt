@@ -1,5 +1,4 @@
 {% load static wagtailuserbar %}
-
 {% load wagtailcore_tags %}
 
 <!DOCTYPE html>
@@ -41,6 +40,12 @@
         {% include "includes/footer.html" %}
 
         {# Global javascript #}
+       
+        <!-- <script type="text/javascript" src="{% static 'js/canvas1.js' %}"></script> -->
+        <script type="text/javascript" src="{% static 'js/mountains.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/canvas2.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/scrollreveal.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/reveal.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/portfolio.js' %}"></script>
 
         {% block extra_js %}

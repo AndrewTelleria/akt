@@ -5,12 +5,21 @@
 {% block body_class %}template-projectindexpage{% endblock %}
 
 {% block content %}
-	<h1>{{ page.title }}</h1>
-	{{ page.intro|richtext }}
-	{% for project in projectpages %}
-		{% with project=project.specific %}
-			<a href="{{ project.url }}">{{ project.title }}</a>
-			<p>{{ project.intro }}</p>
-		{% endwith %}
-	{% endfor %}
+	<div class="inner-container">
+		<h1>{{ page.title }}</h1>
+		{{ page.intro|richtext }}
+		<div class="projects-container">
+			{% for project in projectpages %}
+				{% with project=project.specific %}
+					<a href="{{ project.url }}" class="project">
+						{% image project.image fill-300x200-c100 %}
+						<div class="project-text">
+							<h2>{{ project.title }}</h2>
+							<p>{{ project.intro }}</p>
+						</div>
+					</a>
+				{% endwith %}
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

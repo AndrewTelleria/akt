@@ -1,7 +1,7 @@
 from django.db import models
 
 from modelcluster.fields import ParentalKey
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core import blocks
 from wagtail.admin.edit_handlers import (
@@ -78,5 +78,18 @@ class ProjectPage(Page):
         FieldPanel('project_url'),
         FieldPanel('github'),
         ImageChooserPanel('image'),
+        InlinePanel('gallery_images', label="Gallery images"),
         StreamFieldPanel('body'),
+    ]
+
+class ProjectPageGalleryImage(Orderable):
+    page = ParentalKey(ProjectPage, on_delete=models.CASCADE, related_name='gallery_images')
+    image = models.ForeignKey(
+            'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
+        )
+    caption = models.CharField(blank=True, max_length=250)
+
+    panels = [
+        ImageChooserPanel('image'),
+        FieldPanel('caption'),
     ]

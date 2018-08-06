@@ -1,6 +1,10 @@
 from django import forms
 from django.db import models
-from django.core.validators import RegexValidator
+from django.core.validators import (
+        RegexValidator, 
+        MinValueValidator, 
+        MaxValueValidator
+    )
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
@@ -147,29 +151,115 @@ class HomePage(Page):
     		max_length=255,
     		help_text='Write an introduction for the business',
     	)
-    hero_cta = models.CharField(
+    hero_title = models.CharField(
     		verbose_name='Hero CTA',
     		max_length=255,
     		help_text='Text to display on Call to Action',
     	)
-    hero_cta_link = models.ForeignKey(
-    		'wagtailcore.Page',
-    		null=True,
-    		blank=True,
-    		on_delete=models.SET_NULL,
-    		related_name='+',
-    		verbose_name='Hero CTA link',
-    		help_text='Choose a page to link to for the Call to Action',
-    	)
-    phone_regex = RegexValidator(regex=r'(\(\d\d\d\)) (\d\d\d-\d\d\d\d)', message="Phone must be entered in the format (555) 567-8555")
-    phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)
-    email = models.EmailField(max_length=100)
-
     # Body section of the HomePage
     body = StreamField(
     	BaseStreamBlock(), verbose_name="Home content block", blank=True
     )
-
+    skill_1 = models.CharField(
+    		null=True,
+    		blank=True,
+    		max_length=255,
+    		help_text='A techincal skill i.e. Python',
+    	)
+    skill_2 = models.CharField(
+    		null=True,
+    		blank=True,
+    		max_length=255,
+    		help_text='A techincal skill i.e. Python',
+    	)
+    skill_3 = models.CharField(
+    		null=True,
+    		blank=True,
+    		max_length=255,
+    		help_text='A techincal skill i.e. Python',
+    	)
+    skill_4 = models.CharField(
+    		null=True,
+    		blank=True,
+    		max_length=255,
+    		help_text='A techincal skill i.e. Python',
+    	)
+    skill_5 = models.CharField(
+    		null=True,
+    		blank=True,
+    		max_length=255,
+    		help_text='A techincal skill i.e. Python',
+    	)
+    skill_6 = models.CharField(
+            null=True,
+            blank=True,
+            max_length=255,
+            help_text='A techincal skill i.e. Python',
+        )
+    skill_7 = models.CharField(
+            null=True,
+            blank=True,
+            max_length=255,
+            help_text='A techincal skill i.e. Python',
+        )
+    skill_8 = models.CharField(
+            null=True,
+            blank=True,
+            max_length=255,
+            help_text='A techincal skill i.e. Python',
+        )
+    skill_9 = models.CharField(
+            null=True,
+            blank=True,
+            max_length=255,
+            help_text='A techincal skill i.e. Python',
+        )
+    skill_1_percentage = models.IntegerField(
+            null=True,
+            blank=True,
+            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
+            validators=[MinValueValidator(0), MaxValueValidator(100)]
+        )
+    skill_2_percentage = models.IntegerField(
+            null=True,
+            blank=True,
+            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
+        )
+    skill_3_percentage = models.IntegerField(
+            null=True,
+            blank=True,
+            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
+        )
+    skill_4_percentage = models.IntegerField(
+            null=True,
+            blank=True,
+            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
+        )
+    skill_5_percentage = models.IntegerField(
+            null=True,
+            blank=True,
+            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
+        )
+    skill_6_percentage = models.IntegerField(
+            null=True,
+            blank=True,
+            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
+        )
+    skill_7_percentage = models.IntegerField(
+            null=True,
+            blank=True,
+            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
+        )
+    skill_8_percentage = models.IntegerField(
+            null=True,
+            blank=True,
+            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
+        )
+    skill_9_percentage = models.IntegerField(
+            null=True,
+            blank=True,
+            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
+        )
     promo_image = models.ForeignKey(
     		'wagtailimages.Image',
     		null=True,
@@ -227,22 +317,6 @@ class HomePage(Page):
     		'three child names.',
     		verbose_name='Featured section 1',
     	)
-    featured_section_3_title = models.CharField(
-    		null=True,
-    		blank=True,
-    		max_length=255,
-    		help_text='Title to display above the promo copy',
-    	)
-    featured_section_3 = models.ForeignKey(
-    		'wagtailcore.Page',
-    		null=True,
-    		blank=True,
-    		on_delete=models.SET_NULL,
-    		related_name='+',
-    		help_text='First featured section for the homepage. Will display up to '
-    		'three child names.',
-    		verbose_name='Featured section 1',
-    	)
     # Resume
     resume = models.ForeignKey(
         'wagtaildocs.Document',
@@ -255,15 +329,30 @@ class HomePage(Page):
     content_panels = Page.content_panels + [
     	DocumentChooserPanel('resume'),
     	MultiFieldPanel([
+    		FieldPanel('skill_1'),
+            FieldPanel('skill_1_percentage'),
+    		FieldPanel('skill_2'),
+            FieldPanel('skill_2_percentage'),
+    		FieldPanel('skill_3'),
+            FieldPanel('skill_3_percentage'),
+    		FieldPanel('skill_4'),
+            FieldPanel('skill_4_percentage'),
+    		FieldPanel('skill_5'),
+            FieldPanel('skill_5_percentage'),
+            FieldPanel('skill_6'),
+            FieldPanel('skill_6_percentage'),
+            FieldPanel('skill_7'),
+            FieldPanel('skill_7_percentage'),
+            FieldPanel('skill_8'),
+            FieldPanel('skill_8_percentage'),
+            FieldPanel('skill_9'),
+            FieldPanel('skill_9_percentage'),
+    		], heading="Skills section"),
+    	MultiFieldPanel([
     		ImageChooserPanel('image'),
     		ImageChooserPanel('logo_image'),
     		FieldPanel('hero_text', classname="full"),
-    		FieldPanel('phone_number'),
-    		FieldPanel('email'),
-    		MultiFieldPanel([
-    			FieldPanel('hero_cta'),
-    			PageChooserPanel('hero_cta_link'),
-    			]),
+            FieldPanel('hero_title', classname="full"),
     		], heading="Hero section"),
     	MultiFieldPanel([
     		ImageChooserPanel('promo_image'),
@@ -280,16 +369,9 @@ class HomePage(Page):
 				FieldPanel('featured_section_2_title'),
 				PageChooserPanel('featured_section_2'),
 			]),
-			MultiFieldPanel([
-				FieldPanel('featured_section_3_title'),
-				PageChooserPanel('featured_section_3'),
-			]),
 		], heading="Featured homepage section", classname="collapsible")
     ]
 
-
-    def phone_number_fixer(self):
-    	HomePage.objects.get("phone_number")
 
     def get_context(self, request):
     	context = super(HomePage, self).get_context(request)
@@ -355,43 +437,6 @@ def GalleryPage(Page):
 	subpage_types = []
 
 
-class FormField(AbstractFormField):
-	"""
-	Wagtailforms is a module to introduce simple forms on a wagtail site. It isn't
-	intended as a replacement to Django's form support but as a quick way to generate
-	without having to write code. We use it on the site for a contact form.
-	"""
-	page = ParentalKey('FormPage', related_name='form_fields', on_delete=models.CASCADE)
-
-
-class FormPage(AbstractEmailForm):
-	image = models.ForeignKey(
-		'wagtailimages.Image',
-		null=True,
-		blank=True,
-		on_delete=models.SET_NULL,
-		related_name='+',
-		)
-	body = StreamField(BaseStreamBlock(), null=True)
-	thank_you_text = RichTextField(blank=True)
-
-	# Note how we include the FormField object vie an InlinePanel using
-	# related_name value
-	content_panels = AbstractEmailForm.content_panels + [
-	ImageChooserPanel('image'),
-	StreamFieldPanel('body'),
-	InlinePanel('form_fields', label="Form fields"),
-	FieldPanel('thank_you_text', classname="full"),
-	MultiFieldPanel([
-		FieldRowPanel([
-			FieldPanel('from_address', classname="form-page"),
-			FieldPanel('to_address', classname="form-page"),
-			]),
-		FieldPanel('subject'),
-		], "Email"),
-	]
-
-
 class HomePageImageGallery(Orderable):
 	page = ParentalKey(HomePage, on_delete=models.CASCADE, related_name='gallery_images')
 	image = models.ForeignKey(
@@ -405,3 +450,43 @@ class HomePageImageGallery(Orderable):
 		FieldPanel('caption'),
 		FieldPanel('logo', widget=forms.RadioSelect),
 	]
+
+
+class FormField(AbstractFormField):
+    """
+    Wagtailforms is a module to introduce simple forms on a Wagtail site. It
+    isn't intended as a replacement to Django's form support but as a quick way
+    to generate a general purpose data-collection form or contact form
+    without having to write code. We use it on the site for a contact form. You
+    can read more about Wagtail forms at:
+    http://docs.wagtail.io/en/latest/reference/contrib/forms/index.html
+    """
+    page = ParentalKey('FormPage', related_name='form_fields', on_delete=models.CASCADE)
+
+
+class FormPage(AbstractEmailForm):
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    body = StreamField(BaseStreamBlock())
+    thank_you_text = RichTextField(blank=True)
+
+    # Note how we include the FormField object via an InlinePanel using the
+    # related_name value
+    content_panels = AbstractEmailForm.content_panels + [
+        ImageChooserPanel('image'),
+        StreamFieldPanel('body'),
+        InlinePanel('form_fields', label="Form fields"),
+        FieldPanel('thank_you_text', classname="full"),
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('from_address', classname="col6"),
+                FieldPanel('to_address', classname="col6"),
+            ]),
+            FieldPanel('subject'),
+        ], "Email"),
+    ]

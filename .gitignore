@@ -5,6 +5,9 @@ __pycache__/
 # C extensions
 *.so
 
+# Hide secret key
+dev.py
+
 # Distribution / packaging
 bin/
 build/

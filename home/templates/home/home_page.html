@@ -2,58 +2,145 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
-
-	<canvas></canvas>
-
-	{% image page.image width-1200 as image %}
-
-	<div class="home-header-image" style="background-image: url('{{ image.url }}')"></div>
-
-	<div class="inner-container">
+	<div class="hero">
+		<canvas id="canvas1"></canvas>
 		<div class="container-hero">
-			{% image page.logo_image width-800 as l_image %}
-			<div class="logo" style="background-image: url('{{ l_image.url }}')"></div>
 			<div class="hero-row">
-				{{ page.hero_cta }}
+				<h1>{{ page.hero_text }}</h1>
+				<h2>{{ page.hero_title }}</h2>
 			</div>
 		</div>
+	</div>
 
+	<!-- {% image page.image width-1200 as image %}
+	<div class="home-header-image" style="background-image: url('{{ image.url }}')"></div> -->
+
+	<div class="inner-container">
 		<div class="section-1">
-			<h2>{{ page.featured_section_1_title }}</h2>
-			<div class="homepage-skills">
-			</div>
+			<h1 class="section-1-title">{{ page.featured_section_1_title }}</h1>
+			<div class="promo-and-skills">
+				<div class="promo">
+					{% image page.promo_image fill-300x200-c100 %}
+					<h3 class="promo-title">{{ page.promo_title }}</h3>
+					<p class="promo-text">{{ page.promo_text|richtext }}</p>
+				</div>							
+				<div class="homepage-skills">
+					<ul>
+						<li>
+							<div class="skill-bar">
+								<div class="skill-bar-fill" style="width: {{ page.skill_1_percentage }}%;">
+									<p class="skill">{{ page.skill_1 }}</p>
+									<p class="percent">{{ page.skill_1_percentage }}%</p>			
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="skill-bar">
+								<div class="skill-bar-fill" style="width: {{ page.skill_2_percentage }}%;">
+									<p class="skill">{{ page.skill_2 }}</p>
+									<p class="percent">{{ page.skill_2_percentage }}%</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="skill-bar">
+								<div class="skill-bar-fill" style="width: {{ page.skill_3_percentage }}%;">
+									<p class="skill">{{ page.skill_3 }}</p>
+									<p class="percent">{{ page.skill_3_percentage }}%</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="skill-bar">
+								<div class="skill-bar-fill" style="width: {{ page.skill_4_percentage }}%;">
+									<p class="skill">{{ page.skill_4 }}</p>
+									<p class="percent">{{ page.skill_4_percentage }}%</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="skill-bar">
+								<div class="skill-bar-fill" style="width: {{ page.skill_5_percentage }}%;">
+									<p class="skill">{{ page.skill_5 }}</p>
+									<p class="percent">{{ page.skill_5_percentage }}%</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="skill-bar">
+								<div class="skill-bar-fill" style="width: {{ page.skill_6_percentage }}%;">
+									<p class="skill">{{ page.skill_6 }}</p>
+									<p class="percent">{{ page.skill_6_percentage }}%</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="skill-bar">
+								<div class="skill-bar-fill" style="width: {{ page.skill_7_percentage }}%;">
+									<p class="skill">{{ page.skill_7 }}</p>
+									<p class="percent">{{ page.skill_7_percentage }}%</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="skill-bar">
+								<div class="skill-bar-fill" style="width: {{ page.skill_8_percentage }}%;">
+									<p class="skill">{{ page.skill_8 }}</p>
+									<p class="percent">{{ page.skill_8_percentage }}%</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="skill-bar">
+								<div class="skill-bar-fill" style="width: {{ page.skill_9_percentage }}%;">
+									<p class="skill">{{ page.skill_9 }}</p>
+									<p class="percent">{{ page.skill_9_percentage }}%</p>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>			
 			<div class="homepage-projects">
 				{% for childpage in pp_features_list %}
 					<a href="{{ childpage.url }}" class="section-1-childpage">
-						{% image childpage.image fill-180x140-c100 %}
-						<h2>{{ childpage.title }}</h2>
-						<p>{{ childpage.intro }}</p>
+						{% image childpage.image fill-500x400-c100 %}
+						<div class="section-1-childpage-text">
+							<h2 class="section-1-childpage-title">{{ childpage.title }}</h2>
+							<p class="section-1-childpage-p">{{ childpage.intro }}</p>
+						</div>
 					</a>
 				{% endfor %}
 			</div>
 		</div>
-
+	</div>
+	<!-- <canvas id="canvas2"></canvas> -->
+	<div class="inner-container">
 		<div class="section-2">
-			<div class="homepage-body">
-				{{ page.body }}
-				{{ page.featured_section_2_title }}
-			</div>
+			<h1 class="section-2-title">{{ page.featured_section_2_title }}</h1>
 			<div class="homepage-blog">
 				{% for childpage in bp_features_list %}
 					<a href="{{ childpage.url }}" class="section-2-childpage">
 						{% image childpage.image fill-430x210-c10 %}
-						<h2>{{ childpage.title }}</h2>
-						<p>{{ childpage.intro }}</p>
+						<div class="section-2-childpage-text">
+							<h2 class="section-2-childpage-title">{{ childpage.title }}</h2>
+							<p class="section-2-childpage-p">{{ childpage.intro }}</p>
+						</div>
 					</a>
 				{% endfor %}
 			</div>
 		</div>
 
-		<div class="section-3">
+		<div class="section-3">			
 			<div class="homepage-contact">
 				<a href="{% slugurl 'contact' %}">Contact</a>
 			</div>
-			<a href="{{ page.resume.url }}">Download Resume</a>
+			<div class="resume">
+				<a href="{{ page.resume.url }}">Download Resume</a>
+			</div>
+			<div class="homepage-body">
+				{{ page.body }}
+			</div>
 		</div>
 	</div>
 {% endblock %}

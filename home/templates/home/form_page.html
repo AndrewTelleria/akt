@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div class="inner-container contact-page">
+	<div class="contact-form">
+		<h2>{{ page.title }}</h2>
+		{% if page.intro %}
+			<p class="intro">{{ page.intro|richtext }}</p>
+		{% endif %}
+		{% if page.body %}
+			{{ page.body }}
+		{% endif %}
+	</div>
+	<div class="form-page">
+		<h2>Email Form</h2>
+        <form action="{% pageurl page %}" method="POST" role="form">
+        	{% csrf_token %}
+        	{% if form.subject.errors %}
+        		<ol class="alert-dialog">
+        			{% for error in form.subject.errors %}
+        				<li role="alert"><strong>{{ error|escape }}</strong></li>
+        			{% endfor %}
+        		</ol>
+        	{% endif %}
+
+
+        	{% for field in form %}
+        		<div class="fieldWrapper" aria-required={% if field.field.required %}"true"{% else %}"false"{% endif %}>
+        			<div class="field-text">
+        			{{ field.label_tag }}{% if field.field.required %}<span class="required">*</span>{% endif %}
+	        		</div>
+
+        			{{ field }}
+
+        			{% if field.help_text %}
+        				<p class="help">{{ field.help_text|safe }}</p>
+        			{% endif %}
+        		</div>
+        	{% endfor %}
+        	<p>* = required</p>
+
+        	<input class="submit-button" type="submit">
+        </form>
+    </div>
+</div>
+
+
+{% endblock content %}

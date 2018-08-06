@@ -1,6 +1,6 @@
 // Canvas context
-canvas = document.querySelector('canvas');
-var c = canvas.getContext('2d');
+canvas = document.getElementById('canvas2');
+var c2 = canvas.getContext('2d');
 
 // Set canvas window size
 canvas.width = window.innerWidth;
@@ -49,15 +49,15 @@ function Circle(x, y, dx, dy, radius) {
 	this.color = colorArray[Math.floor(Math.random() * colorArray.length)];
 
 	// Draw the circles
-	this.draw = function() {
-		c.beginPath();
-		c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-		c.fillStyle = this.color;
-		c.fill();
+	this.draw1 = function() {
+		c2.beginPath();
+		c2.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+		c2.fillStyle = this.color;
+		c2.fill();
 	}
 
 	// Updats the circles position
-	this.update = function() {
+	this.update1 = function() {
 		if (this.x + this.radius > innerWidth || this.x - this.radius < 0) {
 			this.dx = -this.dx
 		}
@@ -79,14 +79,14 @@ function Circle(x, y, dx, dy, radius) {
 			this.radius -= 1;
 		}
 
-		this.draw();
+		this.draw1();
 	}
 
 }
 
-// Initialize the cicles
+// Initialize the circles
 var circleArray = [];
-function init() {
+function init1() {
 	circleArray = [];
 	for (var i = 0; i < 750; i++) {
 		var radius = Math.random() * 3 + 1;
@@ -99,15 +99,15 @@ function init() {
 }
 
 // Engine that gives the cirlces life
-function animate() {
+function animate1() {
 	requestAnimationFrame(animate);
-	c.clearRect(0, 0, innerWidth, innerHeight);
+	c2.clearRect(0, 0, innerWidth, innerHeight);
 
 	for (var i = 0; i < circleArray.length; i++) {
-		circleArray[i].update();
+		circleArray[i].update1();
 	}
 
 }
 
-init();
-animate()
+init1();
+animate1()

@@ -91,6 +91,7 @@ PIPELINE = {
         'stats': {
             'source_filenames': (
               'js/portfolio.js',
+              'js/aos-js/aos.js'
             ),
             'output_filename': 'js/stats.js',
         }
@@ -99,6 +100,7 @@ PIPELINE = {
 
 PIPELINE['COMPILERS'] = (
     'pipeline.compilers.es6.ES6Compiler',
+    'pipeline.compilers.sass.SASSCompiler',
 )
 
 WSGI_APPLICATION = 'portfolio.wsgi.application'

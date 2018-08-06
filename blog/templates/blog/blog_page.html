@@ -5,13 +5,16 @@
 {% block body_class %}template-blogpage{% endblock %}
 
 {% block content %}
+<div class="inner-container">
+	{% image page.image min-900x500 as image %}
+	<div class="blogpost-header-image" style="background-image: url('{{ image.url }}')"></div>
 	<h1>{{ page.title }}</h1>
-	<p>{{ page.date }}</p>
-	<p>{{ page.intro }}</p>
+	<h3>{{ page.date }}</h3>
 	<p>{{ page.body }}</p>
 	{% for item in page.gallery_images.all %}
 		{% image item.image width-500 %}
 		<p>{{ item.caption }}</p>
 	{% endfor %}
 	<p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+</div>
 {% endblock %}

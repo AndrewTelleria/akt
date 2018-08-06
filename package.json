@@ -1,26 +1,5 @@
 {
-  "name": "portfolio",
-  "version": "1.0.0",
-  "description": "",
-  "main": "portfolio.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AndrewTelleria/akt.git"
-  },
-  "author": "Andrew K Telleria",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AndrewTelleria/akt/issues"
-  },
-  "homepage": "https://github.com/AndrewTelleria/akt#readme",
-  "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-preset-es2015": "^6.24.1",
-    "webpack": "^4.16.2",
-    "webpack-bundle-tracker": "^0.3.0"
+  "dependencies": {
+    "aos": "^2.3.3"
   }
 }
