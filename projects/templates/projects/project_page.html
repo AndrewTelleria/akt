@@ -7,6 +7,12 @@
 {% block content %}
 <div class="inner-container project-page-container">
 	<h1>{{ page.title }}</h1>
+	{% if page.github %}
+		<h3><a href="{{ page.github }}">GitHub</a></h3>
+	{% endif %}
+	{% if page.project_url %}
+		<h3><a href="{{ page.project_url }}">Project link</a></h3>
+	{% endif %}
 	<p>{{ page.body }}</p>
 
 	<div class="project-image-gallery">

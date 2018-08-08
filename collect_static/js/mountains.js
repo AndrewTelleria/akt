@@ -1,30 +1,41 @@
+// Hello.
+//
+// This is JSHint, a tool that helps to detect errors and potential
+// problems in your JavaScript code.
+//
+// To start, simply enter some JavaScript anywhere on this page. Your
+// report will appear on the right side.
+//
+// Additionally, you can toggle specific options in the Configure
+// menu.
+
 var canvas = document.querySelector('canvas');
 var c = canvas.getContext('2d');
 
-canvas.width = innerWidth
-canvas.height = innerHeight
+canvas.width = innerWidth;
+canvas.height = innerHeight;
 
 addEventListener('resize', () => {
-    canvas.width = innerWidth
-    canvas.height = innerHeight
-    init()
-})
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+    init();
+});
 
 var colors = [
     '#732F67',
     '#612B3C',
     '#610035'
-]
+];
 
 function randomIntFromRange(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min)
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function background() {
     let gradient = c.createLinearGradient(0, 0, 0, canvas.height);
     gradient.addColorStop(0, '#424FCC');
     gradient.addColorStop(0.6, '#FF6A32');
-    c.fillStyle = gradient
+    c.fillStyle = gradient;
     c.fillRect(0, 0, canvas.width, canvas.height);
     console.log('sun');
     c.beginPath();
@@ -50,7 +61,7 @@ function Mountain(x, y, color, peaks) {
         // this.dx = 1;
         // this.x += this.dx;
         this.draw();
-    }
+    };
 
     this.draw = () => {
         // Mountains
@@ -66,13 +77,13 @@ function Mountain(x, y, color, peaks) {
             } else if(this.x > canvas.width) {
                 this.x = canvas.width;
             }
-            c.lineTo(this.x, this.y)
+            c.lineTo(this.x, this.y);
         }
         c.lineTo(canvas.width, canvas.height);
         c.lineTo(0, canvas.height);
         c.fillStyle = this.color;
         c.fill();        
-    }
+    };
 }
 
 
@@ -87,8 +98,8 @@ function init() {
         const peaks = randomIntFromRange(50, 100);
         mountains.push(new Mountain(x, y, colors[i], peaks));
     }
-    for(var i = 0; i < mountains.length; i++) {
-        mountains[i].update();
+    for(var j = 0; j < mountains.length; j++) {
+        mountains[j].update();
     }
     ground();
 }
@@ -98,7 +109,7 @@ function animate() {
     c.clearRect(0, 0, canvas.width, canvas.height);
     mountains.forEach(mountain => {
         background();
-        mountain.update()
+        mountain.update();
         ground();
     });
 
@@ -106,15 +117,5 @@ function animate() {
 
 init();
 // animate();
-
-
-
-
-
-
-
-
-
-
 
 

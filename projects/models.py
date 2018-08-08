@@ -44,8 +44,8 @@ class ProjectPage(Page):
         choices=FEATURE_CHOICES,
         default=0,
     )
-    project_url = models.CharField(max_length=250)
-    github = models.CharField(max_length=250)
+    project_url = models.CharField(max_length=250, help_text="Make sure to include http protocol or else the link will be relative.")
+    github = models.CharField(max_length=250, help_text="Make sure to include http protocol or else the link will be relative.")
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = StreamField([

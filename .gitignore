@@ -5,6 +5,10 @@ __pycache__/
 # C extensions
 *.so
 
+# Virtualenv
+
+akt_venv/
+
 # Hide secret key
 dev.py
 

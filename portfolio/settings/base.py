@@ -103,6 +103,8 @@ PIPELINE['COMPILERS'] = (
     'pipeline.compilers.sass.SASSCompiler',
 )
 
+PIPELINE['JS_COMPRESSOR'] = None
+
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
 
@@ -111,8 +113,11 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',  # 'django.db.backends.sqlite3',
+        'NAME': 'andrewtelleria',    #os.path.join(BASE_DIR, 'db.sqlite3'),
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',                               
     }
 }
 
