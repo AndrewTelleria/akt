@@ -6,7 +6,6 @@ __pycache__/
 *.so
 
 # Virtualenv
-
 akt_venv/
 
 # Hide secret key
