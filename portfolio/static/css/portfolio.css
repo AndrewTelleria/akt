@@ -1,8 +1,9 @@
 html, body{
-   padding: 0;
-   margin: 0;
-   width: 100%;
-   /*background-color: #1c3144;*/
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	max-width: 100%;
+	overflow: none;
 }
 
 p {
@@ -86,6 +87,7 @@ canvas {
 .section-1 {
 	box-shadow: 0px 10px 50px;
 	margin: 20px 0 20px 0;
+	overflow: hidden;
 }
 
 .section-1 h1 {
@@ -188,7 +190,7 @@ canvas {
 .section-2 {
 	box-shadow: 0px 10px 50px;
     margin: 120px 0 120px 0;
-    /*background: linear-gradient(#dc9728, #ad4911);*/
+    overflow: hidden;
 }
 
 .section-2 h1 {
@@ -232,7 +234,7 @@ canvas {
 .section-3 {
 	box-shadow: 0px 10px 50px;
     margin: 120px 0 120px 0;
-    /*background: linear-gradient(#ad4911, #1d5f9a)*/
+    overflow: hidden;
 }
 
 .section-3 > a {
