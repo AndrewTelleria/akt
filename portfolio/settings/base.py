@@ -114,7 +114,7 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'akt_db'
+        'NAME': 'akt_db',
         'USER': os.environ['DB_USER'],
         'PASSWORD': os.environ['DB_PASSWD'],
         'HOST': 'localhost',
