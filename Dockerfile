@@ -1,5 +1,5 @@
 FROM python:3.6
-LABEL maintainer="hello@wagtail.io"
+LABEL maintainer="andrewktelleria@gmail.com"
 
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_ENV dev
