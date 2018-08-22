@@ -1,0 +1,126 @@
+@media screen and (max-width: 1020px) {
+	.project-image-container img {
+		height: 150px;
+	}
+}
+
+@media screen and (max-width: 900px) {
+	.section-1-childpage {
+	    width: 50%;
+	}
+	.section-2-childpage {
+	    width: 50%;
+	}
+	.project {
+	    width: 50%;
+	}
+	.blogpost {
+	    width: 50%;
+	}
+	.fieldWrapper input {
+	    width: 40%;
+        border: 1px solid #676161;
+	}
+	.fieldWrapper textarea {
+	    width: 40%;
+        border: 1px solid #676161;
+	}
+}
+
+
+@media screen and (max-width: 760px) {
+	.menu-icon {
+		display: block;
+	}
+
+	.desktop-menu {
+		display: none;
+	}
+	.mobile-icon {
+		display: block;
+	    cursor: pointer;
+	    height: 75px;
+	    float: right;
+	}
+	header ul li {
+	    max-width: 100%;
+	    border-bottom: 1px solid #352f2f;
+	    padding: 6px;
+	}
+	header ul li a {
+	    padding: 6px;
+	    margin-left: -6px;
+	}
+	header ul li a:hover {
+        border-bottom: 1px solid #352f2f;
+	}
+	header ul li a:active {
+	    background-color: #352f2f;
+	}
+}
+
+@media screen and (max-width: 750px) {
+	.promo-and-skills {
+		flex-wrap: wrap;
+	}
+	.promo {
+	    width: 100%;
+	}
+	.section-1 h1 {
+	    font-size: 50px;
+	}
+	.project-image-container img {
+		height: 100px;
+	}
+	.submit-button {
+	    width: 30%;
+	}
+}
+
+@media screen and (max-width: 550px) {
+	.section-1-childpage {
+	    width: 100%;
+	}
+	.section-2-childpage {
+	    width: 100%;
+	}
+	.project {
+	    width: 100%;
+	}
+	.blogpost {
+	    width: 100%;
+	}
+	.homepage-contact a, .resume a {
+	    font-size: 25px;
+	    border: 1px solid #676161;
+	}
+	.fieldWrapper input {
+	    width: 100%;
+	    border: 1px solid #676161;
+	}
+	.fieldWrapper textarea {
+	    width: 100%;
+	    border: 1px solid #676161;
+	}
+	.project-image-container img {
+		height: 75px;
+	}
+}
+}
+
+@media screen and (max-width: 405px) {
+	.skill-bar-fill {
+	    padding: 15px 4px;
+	    font-size: 15px;
+	}
+	.percent {
+	    font-size: 18px;
+	}
+	.project-image-container img {
+		height: 45px;
+	}
+	.submit-button {
+	    width: 40%;
+	}
+}
+

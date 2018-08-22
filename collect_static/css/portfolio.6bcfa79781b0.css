@@ -1,26 +1,9 @@
-* {
- box-sizing: border-box;
-}
-*:before,
-*:after {
- box-sizing: border-box;
-}
-
 html, body{
 	padding: 0;
 	margin: 0;
 	width: 100%;
 	max-width: 100%;
 	overflow: none;
-	height: 100%;
-	position: relative;
-}
-
-.main {
-	min-height: 100vh;
-	overflow: hidden;
-	display: block;
-	position: relative;
 }
 
 p {
@@ -71,112 +54,11 @@ header ul li a {
 	font-family: "Courier New", Courier, monospace;
 	letter-spacing: 2px;
 	color: #a2a2a2;
+	border-bottom: 1px solid white;
 }
 
 header ul li a:hover {
 	border-bottom: 1px solid #a2a2a2;
-}
-
-.desktop-menu {
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row-reverse;
-	align-items: center;
-	margin: 0;
-	padding-left: 0;
-	max-width: 1200px;
-}
-
-.menu-icon {
-	margin: 12px 15px 0 0;
-	display: none;
-	cursor: pointer;
-}
-
-.bar1, .bar2, .bar3 {
-	width: 35px;
-	height: 5px;
-	background-color: #2C282E;
-	margin: 6px 0;
-	transition: 0.4s;
-    border-radius: 10px;
-}
-
-.change .bar1 {
-	-webkit-transform: rotate(-45deg) translate(-9px, 6px);
-	transform: rotate(-45deg) translate(-9px, 6px);
-}
-
-.change .bar2 {
-	opacity: 0;
-}
-
-.change .bar3 {
-	-webkit-transform: rotate(45deg) translate(-8px, -8px);
-	transform: rotate(45deg) translate(-8px, -8px);
-}
-
-.responsive.menu-on {
-	display: block;
-}
-
-.responsive {
-	text-align: left;
-	width: 100%;
-	background-color: white;
-	/*background: linear-gradient(#58A4B0 0%,#2B303A 100%);*/
-	position: absolute;
-	top: 96px;
-	right: 0;
-	display: none;
-	z-index: 99;
-    box-shadow: 0 1px 20px;
-}
-
-.mobile-icon {
-	display: none;
-}
-
-.mobile-icon-li {
-	border-bottom: 1px solid white;
-}
-
-.responsive ul {
-	margin: 0;
-	padding: 0;
-}
-
-.responsive ul > li {
-	display: flex;
-	justify-content: space-around;
-}
-
-.responsive ul li a .nav-icon {
-	height: 30px;
-	width: 30px;
-}
-
-.responsive ul li {
-	list-style: none;
-	position: relative;
-	border-top: 1px solid white;
-	text-align: center;
-	padding: 10px;
-	font-size: 16px;
-	text-decoration: none;
-	color: white;
-}
-
-.responsive ul li:hover {
-	background-color: #352f2f;
-}
-
-.responsive ul a {
-	text-decoration: none;
-}
-
-.disappear .responsive {
-	display: block;
 }
 
 /* Hero container on homepage */
@@ -206,8 +88,6 @@ canvas {
 	box-shadow: 0px 10px 50px;
 	margin: 20px 0 20px 0;
 	overflow: hidden;
-    display: flex;
-    flex-wrap: wrap;
 }
 
 .section-1 h1 {
@@ -216,7 +96,6 @@ canvas {
     font-weight: 300;
     padding: 50px 0 50px 0;
     margin-bottom: 0;
-    margin: auto;
 }
 
 .promo-and-skills {
@@ -226,11 +105,6 @@ canvas {
 .promo {
     width: 70%;
     padding: 0 30px 0 30px;
-}
-
-.promo img {
-	height: auto;
-	width: 100%;
 }
 
 .homepage-skills {
@@ -246,12 +120,12 @@ canvas {
 
 .skill-bar-fill {
 	width: 50%;
-	padding: 20px;
+	padding: 10px;
 	background-color: #4B54C2;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	height: 0;
+	height: 20px;
 }
 
 .skill {
@@ -262,15 +136,12 @@ canvas {
 
 .percent {
 	color: #2d2b2b;
-	float: right;
-    margin-top: -32px;
 }
 
 
 .homepage-skills ul {
 	list-style: none;
 	padding-left: 0;
-	margin-top: -15px;
 }
 
 .homepage-skills li {
@@ -318,6 +189,7 @@ canvas {
 
 .section-2 {
 	box-shadow: 0px 10px 50px;
+    margin: 120px 0 120px 0;
     overflow: hidden;
 }
 
@@ -361,7 +233,7 @@ canvas {
 
 .section-3 {
 	box-shadow: 0px 10px 50px;
-    margin: 60px 0 95px 0;
+    margin: 120px 0 120px 0;
     overflow: hidden;
 }
 
@@ -383,7 +255,7 @@ canvas {
 
 .resume {
 	text-align: center;
-	padding-top: 43px;
+	padding-top: 30px;
 }
 
 .homepage-contact a, .resume a {
@@ -392,7 +264,6 @@ canvas {
 	color: #676161;
 	font-size: 50px;
 	padding: 10px;
-	border: 1px solid #676161;
 }
 
 .homepage-contact a:hover {
@@ -471,8 +342,7 @@ canvas {
 
 .project-image-container img {
     max-width: 100%;
-    max-height: 200px; 
-    /*height: auto;*/
+    height: auto;
     display: block;
 }
 
@@ -603,15 +473,10 @@ opacity: 0;
     margin: 9px 35px 0 0;
 }
 
-.standard-page-body {
-	padding-bottom: 60px;
-}
-
 /* Contact */
 
 .form-page {
 	text-align: center;
-	padding-bottom: 75px;
 }
 
 .fieldWrapper {
@@ -627,8 +492,6 @@ opacity: 0;
 
 .submit-button {
 	width: 15%;
-	background-color: rgba(186, 186, 186, 0.5);
-    border: 1px solid #352f2f;
 }
 
 input[type="text"] {
@@ -656,9 +519,7 @@ input[type="email"] {
 /* Footer */
 
 footer {	
-	position: absolute;
-	bottom: 0;
-	width: 100%;
+	margin: 0;
 }
 
 footer ul {

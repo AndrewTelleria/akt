@@ -29,7 +29,7 @@ from wagtail.snippets.models import register_snippet
 from .blocks import BaseStreamBlock
 
 from projects.models import ProjectPage
-from blog.models import BlogPage, BlogPageGalleryImage
+from blog.models import BlogPage
 
 
 

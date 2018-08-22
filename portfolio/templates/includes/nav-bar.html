@@ -1,13 +1,9 @@
 {% load wagtailcore_tags %}
 
 <header>
-    <ul>
-    	<li><a href="{% slugurl 'contact' %}">Contact</a></li>
-        <li><a href="{% slugurl 'about' %}">About</a></li>
-        <li><a href="{% slugurl 'blog' %}">Blog</a></li>
-        <li><a href="{% slugurl 'projects' %}">Projects</a></li>
-        <li>
-        	<a href="/">	    		
+    <ul id="nav">
+    	<li class="mobile-icon-li">
+        	<div onclick="responsiveMenu()" class="mobile-icon">	    		
 				<svg width="79px" height="75px" viewBox="0 0 79 75" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 				    <!-- Generator: Sketch 51.1 (57501) - http://www.bohemiancoding.com/sketch -->
 				    <desc>Created with Sketch.</desc>
@@ -26,7 +22,42 @@
 				        </g>
 				    </g>
 				</svg>
-			</a>
+			</div>
     	</li>
+		<div class="responsive" id="responsive-menu"> 
+			<li><a href="/">Home</a></li>
+		    <li><a href="{% slugurl 'projects' %}">Projects</a></li>	
+		    <li><a href="{% slugurl 'contact' %}">Contact</a></li>
+		    <li><a href="{% slugurl 'about' %}">About</a></li>    
+		    <li><a href="{% slugurl 'blog' %}">Blog</a></li>
+		</div>
+    	<div class="desktop-menu">
+	    	<li><a href="{% slugurl 'contact' %}">Contact</a></li>
+	        <li><a href="{% slugurl 'about' %}">About</a></li>
+	        <li><a href="{% slugurl 'blog' %}">Blog</a></li>
+	        <li><a href="{% slugurl 'projects' %}">Projects</a></li>
+	        <li>
+	        	<a href="/">	    		
+					<svg width="79px" height="75px" viewBox="0 0 79 75" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+					    <!-- Generator: Sketch 51.1 (57501) - http://www.bohemiancoding.com/sketch -->
+					    <desc>Created with Sketch.</desc>
+					    <defs></defs>
+					    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+					        <g id="Desktop-HD" transform="translate(-192.000000, -13.000000)" stroke="#322D34">
+					            <g id="Logo" transform="translate(194.000000, 15.000000)">
+					                <ellipse id="Oval" stroke-width="4" cx="37.5" cy="35.5" rx="37.5" ry="35.5"></ellipse>
+					                <path d="M18.25,5.5 L18.25,65.5" id="Line" stroke-width="3" stroke-linecap="square"></path>
+					                <path d="M18.5,6.5 L57,65" id="Line-2" stroke-width="2" stroke-linecap="square"></path>
+					                <path d="M18.5,33.25 L53.5,33.25" id="Line-3" stroke-width="3" stroke-linecap="square"></path>
+					                <path d="M36.25,34.5 L36.25,69" id="Line-4" stroke-width="3" stroke-linecap="square"></path>
+					                <path d="M37,33 L53.5,4.5" id="Line-5" stroke-width="2" stroke-linecap="square"></path>
+					                <path d="M36.25,37.5 L36.25,1.5" id="Line-6" stroke-width="3" stroke-linecap="square"></path>
+					            </g>
+					        </g>
+					    </g>
+					</svg>
+				</a>
+	    	</li>
+    	</div>    	
     </ul>
 </header>

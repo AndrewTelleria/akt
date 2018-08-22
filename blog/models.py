@@ -17,7 +17,7 @@ from wagtail.admin.edit_handlers import (
     MultiFieldPanel, 
     StreamFieldPanel,
 )
-
+from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
@@ -96,6 +96,7 @@ class BlogPage(Page):
             ('heading', blocks.CharBlock(classname="full title")),
             ('paragraph', blocks.RichTextBlock()),
             ('image', ImageChooserBlock()),
+            ('video', EmbedBlock()),
         ])
     image = models.ForeignKey(
         'wagtailimages.Image',
@@ -129,21 +130,7 @@ class BlogPage(Page):
         ], heading="Blog information"),
         FieldPanel('intro', classname="full"),
         ImageChooserPanel('image'),
-        InlinePanel('gallery_images', label="Gallery images"),
         StreamFieldPanel('body'),
-    ]
-
-
-class BlogPageGalleryImage(Orderable):
-    page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
-    image = models.ForeignKey(
-            'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
-        )
-    caption = models.CharField(blank=True, max_length=250)
-
-    panels = [
-        ImageChooserPanel('image'),
-        FieldPanel('caption'),
     ]
 
 

@@ -17,3 +17,14 @@ var span = document.getElementsByClassName("close")[0]
 span.onclick = function() {
 	modal.style.display = "none";
 }
+
+// function menuIcon(x) {
+// 	x.classList.toggle("change");
+// 	var menuClass = document.getElementById("responsive-menu");
+// 	menuClass.classList.toggle("menu-on");
+// }
+
+function responsiveMenu(x) {
+	var menuClass = document.getElementById("responsive-menu");
+	menuClass.classList.toggle("menu-on");
+}

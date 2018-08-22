@@ -4,9 +4,9 @@ import os
 
 SECRET_KEY = SECRET_KEY
 
-ALLOWED_HOSTS = ['']
+ALLOWED_HOSTS = ['*']
 
-DEBUG = False
+DEBUG = True
 
 try:
     from .local import *

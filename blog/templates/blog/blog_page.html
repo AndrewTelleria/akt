@@ -11,10 +11,6 @@
 	<h1>{{ page.title }}</h1>
 	<h3>{{ page.date }}</h3>
 	<p>{{ page.body }}</p>
-	{% for item in page.gallery_images.all %}
-		{% image item.image width-500 %}
-		<p>{{ item.caption }}</p>
-	{% endfor %}
 	<p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
 </div>
 {% endblock %}
