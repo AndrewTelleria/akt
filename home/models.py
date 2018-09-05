@@ -1,5 +1,12 @@
+import sendgrid
+from sendgrid.helpers.mail import *
+from decouple import config
 from django import forms
+from django.core.mail import send_mail
 from django.db import models
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
+from django.template.loader import get_template
 from django.core.validators import (
         RegexValidator, 
         MinValueValidator, 
@@ -10,13 +17,13 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
 from wagtail.admin.edit_handlers import (
-		FieldPanel,
-		FieldRowPanel,
-		InlinePanel,
-		MultiFieldPanel,
-		PageChooserPanel,
-		StreamFieldPanel,
-	)
+        FieldPanel,
+        FieldRowPanel,
+        InlinePanel,
+        MultiFieldPanel,
+        PageChooserPanel,
+        StreamFieldPanel,
+    )
 
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Collection, Page, Orderable
@@ -27,6 +34,7 @@ from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
 from .blocks import BaseStreamBlock
+from .forms import ContactForm
 
 from projects.models import ProjectPage
 from blog.models import BlogPage
@@ -35,17 +43,6 @@ from blog.models import BlogPage
 
 @register_snippet
 class People(ClusterableModel):
-	"""
-	A Django model to store people objects. It uses the '@register_snippet'
-	decorator to allow it to be accesible via the Snippets UI
-
-	'People' uses the 'ClusterableModel', which allows the relationship with
-	another model to be stored locally to the 'parent' model (e.g. a PageModel)
-	until the parent is explicitly saved. This allows the editor to use the
-	'Preview' button, to preview the content, without saving the relationships
-	to the database.
-	https://github.com/wagtail/django-modelcluster
-	"""
 	first_name = models.CharField("First name", max_length=254)
 	last_name = models.CharField("Last name", max_length=254)
 	job_title = models.CharField("Job title", max_length=254)
@@ -90,12 +87,6 @@ class People(ClusterableModel):
 
 
 class StandardPage(Page):
-	"""
-	A generic content page. On this demo site we use it for an about page but
-	it could be used for any page content that only needs a title,
-	image, introduction, and body field
-	"""
-
 	introduction = models.TextField(
 			help_text='Text to describe the page',
 			blank=True,
@@ -121,16 +112,6 @@ class StandardPage(Page):
 
 
 class HomePage(Page):
-    """
-	The Home Page. This looks slightly more complicated then it is. You can see
-	if you visit your site and edit the homepage that it is split between a:
-		- Hero area
-		- Body area
-		- A promotional area
-		- Moveable feature site sections
-    """
-
-    # Hero section of HomePage
     logo_image = models.ForeignKey(
     		'wagtailimages.Image',
     		null=True,
@@ -156,7 +137,6 @@ class HomePage(Page):
     		max_length=255,
     		help_text='Text to display on Call to Action',
     	)
-    # Body section of the HomePage
     body = StreamField(
     	BaseStreamBlock(), verbose_name="Home content block", blank=True
     )
@@ -279,12 +259,6 @@ class HomePage(Page):
     		blank=True,
     		help_text='Write some promotional copy',
     	)
-
-    # Featured sections on the HomePage
-    # You will see on templates/home/home_page.html that these are treated
-    # in different ways, and displayed in different areas of the page.
-    # Each list their children items that we access via the children function
-    # that we define on the individual Page models e.g. BlogIndexPage
     featured_section_1_title = models.CharField(
     		null=True,
     		blank=True,
@@ -317,7 +291,6 @@ class HomePage(Page):
     		'three child names.',
     		verbose_name='Featured section 1',
     	)
-    # Resume
     resume = models.ForeignKey(
         'wagtaildocs.Document',
         null=True,
@@ -325,6 +298,7 @@ class HomePage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+
 
     content_panels = Page.content_panels + [
     	DocumentChooserPanel('resume'),
@@ -372,26 +346,60 @@ class HomePage(Page):
 		], heading="Featured homepage section", classname="collapsible")
     ]
 
+    def serve(self, request):
+        context = super(HomePage, self).get_context(request)
+        pp_list = [1, 2, 3]
+        bp_list = [1, 2, 3]
+        pp_objs = ProjectPage.objects.all()
+        bp_objs = BlogPage.objects.all()
+        for pp in pp_objs:
+            for value in pp_list:
+                if value == pp.feature and pp not in pp_list:
+                    pp_list.insert(value-1, pp)
+                    pp_list.remove(value)
+        for bp in bp_objs:
+            for value in bp_list:
+                if value == bp.feature and bp not in bp_list:
+                    bp_list.insert(value-1, bp)
+                    bp_list.remove(value)
+        context['pp_features_list'] = pp_list
+        context['bp_features_list'] = bp_list
+        form = ContactForm()
+        return render(request, 'home/home_page.html', {
+                'page': self,
+                'form': form,
+                'pp_features_list': pp_list,
+                'bp_features_list': bp_list,
+            })
 
-    def get_context(self, request):
-    	context = super(HomePage, self).get_context(request)
-    	pp_list = [1, 2, 3]
-    	bp_list = [1, 2, 3]
-    	pp_objs = ProjectPage.objects.all()
-    	bp_objs = BlogPage.objects.all()
-    	for pp in pp_objs:
-    		for value in pp_list:
-    			if value == pp.feature and pp not in pp_list:
-    				pp_list.insert(value-1, pp)
-    				pp_list.remove(value)
-    	for bp in bp_objs:
-    		for value in bp_list:
-    			if value == bp.feature and bp not in bp_list:
-    				bp_list.insert(value-1, bp)
-    				bp_list.remove(value)
-    	context['pp_features_list'] = pp_list
-    	context['bp_features_list'] = bp_list
-    	return context
+    def submit_contact(request):
+        form = ContactForm(request.POST)
+        if form.is_valid():            
+            form_full_name = form.cleaned_data['full_name']
+            form_email = form.cleaned_data['email']
+            form_message = form.cleaned_data['message']
+            subject = 'Portfolio - ' + form.cleaned_data['subject'] 
+            from_email = Email('telleria.portfolio@gmail.com')
+            to_email = Email('andrewktelleria@gmail.com')
+            # from_email = 'telleria.portfolio@gmail.com'
+            # to_email = ['andrewktelleria@gmail.com']
+            context = {
+                'form_full_name': form_full_name,
+                'form_email': form_email,
+                'form_message': form_message,
+            }
+            contact_message =Content("text/plain", get_template('home/contact_message.txt').render(context))
+            # contact_message = get_template('home/contact_message.txt').render(context)
+            try:
+                send_mail(subject, contact_message, from_email, to_email)
+                sg = sendgrid.SendGridAPIClient(apikey=config('SENDGRID_API_KEY'))
+                mail = Mail(from_email, subject, to_email, contact_message)
+                response = sg.client.mail.send.post(request_body=mail.get())
+            except:
+                return HttpResponse({'success' : False })
+        return render(request, 'home/home_page.html', {
+                'form': form,
+            })
 
     def __str__(self):
     	return self.title

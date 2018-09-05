@@ -141,7 +141,12 @@
 
 		<div class="section-3">			
 			<div class="homepage-contact">
-				<a href="{% slugurl 'contact' %}">Contact</a>
+				<!-- <a href="{% slugurl 'contact' %}">Contact</a> -->
+				<form action="." method="POST" id="contact-form">
+					{% csrf_token %}
+					{{ form.as_p }}
+			        <p><button type="submit" id="submit">Contact Us</button></p>
+			    </form>
 			</div>
 			<div class="resume">
 				<a href="{{ page.resume.url }}">Download Resume</a>

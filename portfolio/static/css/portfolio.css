@@ -221,6 +221,7 @@ canvas {
 
 .promo-and-skills {
 	display: flex;
+	width: 100%;
 }
 
 .promo {

@@ -6,14 +6,10 @@
     <head>
         <meta charset="utf-8" />
         <title>
+            Andrew K. Telleria
             {% block title %}
                 {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
-            {% endblock %}
-            {% block title_suffix %}
-                {% with self.get_site.site_name as site_name %}
-                    {% if site_name %}- {{ site_name }}{% endif %}
-                {% endwith %}
-            {% endblock %}
+            {% endblock %}            
         </title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -43,12 +39,15 @@
         </div>
 
         {# Global javascript #}
-       
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
         <!-- <script type="text/javascript" src="{% static 'js/canvas1.js' %}"></script> -->
-        <script type="text/javascript" src="{% static 'js/mountains.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/canvas2.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/scrollreveal.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/reveal.js' %}"></script>
+          
+        {% if page.title == 'Home' %}
+            <script type="text/javascript" src="{% static 'js/mountains.js' %}"></script> 
+            <script type="text/javascript" src="{% static 'js/scrollreveal.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/reveal.js' %}"></script>
+        {% endif %}
+        
         <script type="text/javascript" src="{% static 'js/portfolio.js' %}"></script>
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}

@@ -66,6 +66,9 @@
 	.promo {
 	    width: 100%;
 	}
+	.promo img {        
+	    width: 70%;
+	}
 	.section-1 h1 {
 	    font-size: 50px;
 	}

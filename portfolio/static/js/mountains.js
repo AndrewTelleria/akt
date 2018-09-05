@@ -1,14 +1,3 @@
-// Hello.
-//
-// This is JSHint, a tool that helps to detect errors and potential
-// problems in your JavaScript code.
-//
-// To start, simply enter some JavaScript anywhere on this page. Your
-// report will appear on the right side.
-//
-// Additionally, you can toggle specific options in the Configure
-// menu.
-
 var canvas = document.querySelector('canvas');
 var c = canvas.getContext('2d');
 
@@ -37,7 +26,6 @@ function background() {
     gradient.addColorStop(0.6, '#FF6A32');
     c.fillStyle = gradient;
     c.fillRect(0, 0, canvas.width, canvas.height);
-    console.log('sun');
     c.beginPath();
 }
 

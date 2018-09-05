@@ -7,12 +7,15 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
+from home.models import HomePage as home
 
 urlpatterns = [
     url(r'^django-admin/', admin.site.urls),
 
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
+    url(r'^contact-submit/', home.submit_contact, name='submit_contact'),
+    
 
     url(r'^search/$', search_views.search, name='search'),
 

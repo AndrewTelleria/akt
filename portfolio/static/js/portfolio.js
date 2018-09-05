@@ -1,30 +1,37 @@
-var modal = document.getElementById('myModal');
-var images = document.getElementsByClassName('project-image');
-var modalImage = document.getElementById('modal-image');
-var captionText = document.getElementById('caption');
-
-let img;
-for (let i = 0; i < images.length; i++) {
-	img = images[i];
-	img.onclick = function() {
-		modal.style.display = "block";
-		modalImage.src = this.src;
-	}
-}
-
-var span = document.getElementsByClassName("close")[0]
-
-span.onclick = function() {
-	modal.style.display = "none";
-}
-
-// function menuIcon(x) {
-// 	x.classList.toggle("change");
-// 	var menuClass = document.getElementById("responsive-menu");
-// 	menuClass.classList.toggle("menu-on");
-// }
-
 function responsiveMenu(x) {
 	var menuClass = document.getElementById("responsive-menu");
 	menuClass.classList.toggle("menu-on");
 }
+
+$(document).ready(function() {
+	$('#contact-form').submit(function(e) {
+	    e.preventDefault();
+
+	    var name = $('#id_full_name');
+	    var email = $('#id_email');
+	    var subject = $('#id_subject');
+	    var message = $('#id_message');
+
+	    $.ajax({
+	      type : 'POST',
+	      url : '/contact-submit/',
+	      data : {
+	        'full_name' : name.val(),
+	        'email' : email.val(),
+	        'subject' : subject.val(),
+	        'message' : message.val(),
+	        'csrfmiddlewaretoken' : $('input[name=csrfmiddlewaretoken]').val()
+	      },
+	      dataType: 'json',
+	      success: function (data) {
+	        if (data.success) {
+	          name.val('')
+	          email.val('');
+	          phone.val('');
+	          subject.val('');
+	          message.val('Thank you. Your request has been submitted. We will be contacting you shortly.');
+	        }
+	      }
+	    });
+	});
+});

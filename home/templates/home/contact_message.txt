@@ -1,0 +1,9 @@
+You have received a message from {{ form_full_name }},
+
+Message:
+
+{{ form_message }}
+
+
+Reply to this email:
+{{ form_email }}

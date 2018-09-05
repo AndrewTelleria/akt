@@ -5,6 +5,9 @@ __pycache__/
 # C extensions
 *.so
 
+# python decouple
+.env
+
 # Virtualenv
 akt_venv/
 
