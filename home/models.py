@@ -350,20 +350,20 @@ class HomePage(Page):
 
     def serve(self, request):
         context = super(HomePage, self).get_context(request)
-        pp_list = [1, 2, 3]
-        bp_list = [1, 2, 3]
         pp_objs = ProjectPage.objects.all()
         bp_objs = BlogPage.objects.all()
-        for pp in pp_objs:
-            for value in pp_list:
-                if value == pp.feature and pp not in pp_list:
-                    pp_list.insert(value-1, pp)
-                    pp_list.remove(value)
-        for bp in bp_objs:
-            for value in bp_list:
-                if value == bp.feature and bp not in bp_list:
-                    bp_list.insert(value-1, bp)
-                    bp_list.remove(value)
+        pp_list = [proj for proj in pp_objs]
+        bp_list = [blog for blog in bp_objs]
+        # for pp in pp_objs:
+        #     for value in pp_list:
+        #         if value == pp.feature and pp not in pp_list:
+        #             pp_list.insert(value-1, pp)
+        #             pp_list.remove(value)
+        # for bp in bp_objs:
+        #     for value in bp_list:
+        #         if value == bp.feature and bp not in bp_list:
+        #             bp_list.insert(value-1, bp)
+        #             bp_list.remove(value)
         context['pp_features_list'] = pp_list
         context['bp_features_list'] = bp_list
         form = ContactForm()

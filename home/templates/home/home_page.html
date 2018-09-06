@@ -122,8 +122,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- <canvas id="canvas2"></canvas> -->
+	
 	<div class="inner-container">
+		{% if bp_features_list > 0 %}
 		<div class="section-2">
 			<h1 class="section-2-title">{{ page.featured_section_2_title }}</h1>
 			<div class="homepage-blog">
@@ -138,6 +139,8 @@
 				{% endfor %}
 			</div>
 		</div>
+		{% endif %}
+
 
 		<div class="section-3">									
 			<div class="homepage-body">
