@@ -1,4 +1,6 @@
 import sendgrid
+import os
+import python_http_client
 from sendgrid.helpers.mail import *
 from decouple import config
 from django import forms
@@ -374,32 +376,27 @@ class HomePage(Page):
 
     def submit_contact(request):
         form = ContactForm(request.POST)
-        if form.is_valid():            
+        if form.is_valid():
             form_full_name = form.cleaned_data['full_name']
             form_email = form.cleaned_data['email']
             form_message = form.cleaned_data['message']
             subject = 'Portfolio - ' + form.cleaned_data['subject'] 
             from_email = Email('telleria.portfolio@gmail.com')
             to_email = Email('andrewktelleria@gmail.com')
-            # from_email = 'telleria.portfolio@gmail.com'
-            # to_email = ['andrewktelleria@gmail.com']
             context = {
                 'form_full_name': form_full_name,
                 'form_email': form_email,
                 'form_message': form_message,
             }
             contact_message =Content("text/plain", get_template('home/contact_message.txt').render(context))
-            # contact_message = get_template('home/contact_message.txt').render(context)
             try:
-                send_mail(subject, contact_message, from_email, to_email)
                 sg = sendgrid.SendGridAPIClient(apikey=config('SENDGRID_API_KEY'))
                 mail = Mail(from_email, subject, to_email, contact_message)
+                print(mail)
                 response = sg.client.mail.send.post(request_body=mail.get())
             except:
                 return HttpResponse({'success' : False })
-        return render(request, 'home/home_page.html', {
-                'form': form,
-            })
+        return JsonResponse({'success' : True})
 
     def __str__(self):
     	return self.title
