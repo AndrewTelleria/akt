@@ -459,6 +459,10 @@ canvas {
     padding: 20px 0;
 }
 
+.main-carousel {
+    margin-bottom: 42px;
+}
+
 .carousel-cell:hover .overlay {
 	opacity: 1;
 }
@@ -470,6 +474,8 @@ canvas {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    margin-right: 20px;
 }
 
 .carousel-cell img {

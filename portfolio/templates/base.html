@@ -43,8 +43,11 @@
 
         {# Global javascript #}        
         <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-        <script src="{% static 'js/flickity.pkgd.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/fullscreen.js' %}"></script>
+        {% if page.title != 'Home' %}
+            <script src="{% static 'js/flickity.pkgd.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/fullscreen.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/projectPage.js' %}"></script>
+        {% endif %}
         <script type="text/javascript" src="{% static 'js/portfolio.js' %}"></script>
         <!-- <script type="text/javascript" src="{% static 'js/canvas1.js' %}"></script> -->
           
