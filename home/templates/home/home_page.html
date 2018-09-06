@@ -139,19 +139,23 @@
 			</div>
 		</div>
 
-		<div class="section-3">			
-			<div class="homepage-contact">
-				<form action="." method="POST" id="contact-form">
-					{% csrf_token %}
-					{{ form.as_p }}
-			        <p><button type="submit" id="submit">Contact Us</button></p>
-			    </form>
+		<div class="section-3">									
+			<div class="homepage-body">
+				{{ page.body }}
 			</div>
 			<div class="resume">
 				<a href="{{ page.resume.url }}">Download Resume</a>
 			</div>
-			<div class="homepage-body">
-				{{ page.body }}
+			<div class="homepage-contact">
+				<h1>Contact</h1>
+				<form action="." method="POST" id="contact-form">
+					{% csrf_token %}
+					{{ form.as_p }}
+					<div class="contact-button">
+				        <button type="submit" id="submit">Submit</button>
+				    </div>
+			    </form>
+			    
 			</div>
 		</div>
 	</div>

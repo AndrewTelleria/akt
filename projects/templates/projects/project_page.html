@@ -15,21 +15,14 @@
 	{% endif %}
 	<p>{{ page.body }}</p>
 
-	<div class="project-image-gallery">
-		{% for item in page.gallery_images.all %}
-			{% image item.image width-900 as project_photo %}
-			<div class="project-image-container">
-				<img src="{{ project_photo.url }}" width="{{ project_photo.width }}"
-				height="{{ project_photo.height }}" alt="{{ project_photo.alt }}" class="project-image" id="myImg"/>
+	<div class="main-carousel">
+		{% for item in page.gallery_images.all %}			
+			<div class="carousel-cell">
+				{% image item.image width-900 as p_image %}
+				<img src="{{ p_image.url }}">
 				<p class="overlay">{{ item.caption }}</p>
 			</div>
 		{% endfor %}
-
-		<div class="modal" id="myModal">
-			<span class="close">&times;</span>
-			<img class="modal-content" id="modal-image">
-			<div id="caption"></div>
-		</div>
 	</div>
 	<p><a href="{{ page.get_parent.url }}">Return to Projects</a></p>
 </div>

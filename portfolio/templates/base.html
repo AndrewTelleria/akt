@@ -15,9 +15,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {# Global stylesheets #}
+        <link rel="stylesheet" href="{% static 'css/fullscreen.css' %}" media="screen">
+        <link rel="stylesheet" href="{% static 'css/flickity.css' %}" media="screen">        
         <link rel="stylesheet" type="text/css" href="{% static 'css/portfolio.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
@@ -38,8 +41,11 @@
             {% include "includes/footer.html" %}
         </div>
 
-        {# Global javascript #}
+        {# Global javascript #}        
         <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+        <script src="{% static 'js/flickity.pkgd.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/fullscreen.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/portfolio.js' %}"></script>
         <!-- <script type="text/javascript" src="{% static 'js/canvas1.js' %}"></script> -->
           
         {% if page.title == 'Home' %}
@@ -48,7 +54,8 @@
             <script type="text/javascript" src="{% static 'js/reveal.js' %}"></script>
         {% endif %}
         
-        <script type="text/javascript" src="{% static 'js/portfolio.js' %}"></script>
+        
+        
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}
         {% endblock %}

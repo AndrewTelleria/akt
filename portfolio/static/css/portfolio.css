@@ -377,11 +377,6 @@ canvas {
 	color: white;
 }
 
-.homepage-contact {
-	text-align: center;
-	padding-top: 30px;
-}
-
 .resume {
 	text-align: center;
 	padding-top: 43px;
@@ -391,19 +386,28 @@ canvas {
 	text-decoration: none;
 	font-family: "Courier New", Courier, monospace;
 	color: #676161;
-	font-size: 50px;
+	font-size: 25px;
 	padding: 10px;
-	border: 1px solid #676161;
-}
-
-.homepage-contact a:hover {
-	background-color: #352f2f;
-	color: #d6d2d2;
+	box-shadow: 0 1px 5px #676161;
+	transition: 0.3s;
+	display: block;
+	margin: auto;
+	max-width: 35%;
+	height: 50px;
 }
 
 .resume a:hover {
 	background-color: #352f2f;
 	color: #d6d2d2;
+    font-size: 27px;
+    box-shadow: 0 5px 15px #676161;
+}
+
+.resume a:active {
+	background-color: #352f2f;
+	color: green;
+	font-size: 27px;
+    box-shadow: 0 15px 20px #676161;
 }
 
 /* Projects index page */
@@ -437,17 +441,6 @@ canvas {
 
 /* Project Page */
 
-.project-page-container {
-	/*display: flex;
-	flex-wrap: wrap;*/
-}
-
-.project-image-container {
-	cursor: pointer;
-	transition: 0.3s;
-	width: calc(100%/3);
-	position: relative;
-}
 
 .overlay {
 	position: absolute;
@@ -466,100 +459,24 @@ canvas {
     padding: 20px 0;
 }
 
-.project-image-container:hover .overlay {
+.carousel-cell:hover .overlay {
 	opacity: 1;
 }
 
-.project-image-container img {
-    max-width: 100%;
-    max-height: 200px; 
-    /*height: auto;*/
-    display: block;
+.carousel-cell {
+    width: 100%;
+    height: 550px;
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/*.project-image-container:hover {
-	opacity: 0.7;
+.carousel-cell img {
 	display: block;
-}*/
-
-.modal {
-	display: none;
-	position: fixed;
-	z-index: 1;
-	padding-top: 100px;
-	left: 0;
-	top: 0;
-	width: 100%;
+	max-width: 100%;
 	height: 100%;
-	overflow: auto;
-	background-color: rgb(0, 0, 0);
-	background-color: rgba(0, 0, 0, 0.9);
-	transition: opacity 2s linear;
-	transform: translate(0);
-	opacity: 1;
 }
-
-.modal-content {
-	margin: auto;
-	display: block;
-	width: 80%;
-	max-width: 700px;
-}
-
-#caption {
-	margin: auto;
-	display: block;
-	width: 80%;
-	max-width: 700px;
-	text-align: center;
-	color: #ccc;
-	padding: 10px 0;
-	height: 150px;
-}
-
-.modal-content,
-#caption {
-	animation-name: zoom;
-	animation-duration: 0.6s;
-}
-
-@keyframes zoom {
-	from {
-		transform: scale(0.5);
-	}
-	to {
-		transform: scale(1.0);
-	}
-}
-
-.close {
-	position: absolute;
-	top: 15px;
-	right: 35px;
-	color: #f1f1f1;
-	font-size: 40px;
-	font-weight: bold;
-	transition: 0.3s;
-}
-
-.close:hover,
-.close:focus {
-	color: #bbb;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-.hidden {
-transform:translate(9999px);
-opacity: 0;
-}
-
-@media only screen and (max-width: 700px) {
-	.modal-content {
-		width: 100%;
-	}
-}
-
 
 /* Blog Index page */
 
@@ -610,48 +527,85 @@ opacity: 0;
 
 /* Contact */
 
+.homepage-contact {
+    margin-bottom: 15px;
+}
+.homepage-contact h1 {
+	text-align: center;
+	font-size: 50px;
+	font-weight: 400;
+}
+
+input, textarea, button {
+	margin: 0;
+	border: 0;
+	box-shadow: 0 1px 5px #676161;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	color: #676161;
+	font-family: Tahoma, Geneva, sans-serif;
+	letter-spacing: 2px;
+	line-height: 20px;
+}
+
 .form-page {
 	text-align: center;
 	padding-bottom: 75px;
 }
 
-.fieldWrapper {
-	font-family: "Courier New", Courier, monospace;
-	letter-spacing: 2px;
-	color: #322D34;
-    margin: 10px 0;
+form {
+	margin: auto;
+	width: 35%;
+}
+
+form p {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .fieldWrapper input {
 	width: 25%;
 }
 
-.submit-button {
-	width: 15%;
-	background-color: rgba(186, 186, 186, 0.5);
-    border: 1px solid #352f2f;
-}
-
 input[type="text"] {
-	color: #676161;
-	font-family: Tahoma, Geneva, sans-serif;
-	letter-spacing: 2px;
-	line-height: 20px;
+	width: 100%;
 }
 
 input[type="email"] {
-	color: #676161;
-	font-family: Tahoma, Geneva, sans-serif;
-	letter-spacing: 2px;
-	line-height: 20px;
+	width: 100%;
 }
 
-.fieldWrapper textarea {
-	color: #676161;
-	font-family: Tahoma, Geneva, sans-serif;
-	letter-spacing: 2px;
-	line-height: 32px;
-	width: 25%;
+form p textarea {
+	width: 100%;
+}
+
+.contact-button {
+	text-align: center;
+}
+
+form button {
+	font-size: 15px;
+    padding: 10px;
+	cursor: pointer;
+	width: 50%;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+
+form button:hover {
+	background-color: #352f2f;
+    color: #d6d2d2;
+    font-size: 16px;
+    box-shadow: 0 5px 15px #676161;
+}
+
+form button:active {
+	background-color: #352f2f;
+	color: green;
+	font-size: 18px;
+    box-shadow: 0 15px 20px #676161;
 }
 
 /* Footer */
