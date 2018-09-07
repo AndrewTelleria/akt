@@ -485,6 +485,10 @@ header ul li a:hover {
 	height: 100%;
 }
 
+.project-page-return {
+	margin-bottom: 70px;
+}
+
 /* Blog Index page */
 
 .blogs-container {
