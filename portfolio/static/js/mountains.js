@@ -4,11 +4,21 @@ var c = canvas.getContext('2d');
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
-addEventListener('resize', () => {
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
-    init();
-});
+console.log(screen.width);
+
+// If the screen width is less than 375px -- iPhone X -- 
+// then don't run the event listener.
+// When viewing the canvas on a mobile browser there is jitter due to resizing
+// but it is not present on a laptop screen. 
+// There might be jitter on a tablet screen.
+if(screen.width > 375) {
+    addEventListener('resize', () => {
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
+        init();
+    });
+};
+
 
 var colors = [
     '#732F67',
