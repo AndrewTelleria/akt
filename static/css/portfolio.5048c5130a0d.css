@@ -1,7 +1,6 @@
 * {
  box-sizing: border-box;
 }
-
 *:before,
 *:after {
  box-sizing: border-box;
@@ -44,7 +43,6 @@ h1, h2, h3 {
 }
 
 /* Navigation bar */
-
 
 header {
 	width: 100%;
