@@ -25,6 +25,9 @@
 	    width: 40%;
         border: 1px solid #676161;
 	}
+	.carousel-cell img {
+	    height: auto;
+	}
 }
 
 
@@ -56,6 +59,19 @@
 	}
 	header ul li a:active {
 	    background-color: #352f2f;
+	}
+	.resume a {
+		font-size: 23px;
+		max-width: 50%;
+	}
+	.resume a:hover {
+		font-size: 24px;
+	}
+	.resume a:active {
+		font-size: 24px;
+	}
+	form {
+		width: 50%;
 	}
 }
 
@@ -93,9 +109,11 @@
 	.blogpost {
 	    width: 100%;
 	}
-	.homepage-contact a, .resume a {
-	    font-size: 25px;
-	    border: 1px solid #676161;
+	.resume a {
+		max-width: 80%;
+	}
+	form {
+		width: 80%;
 	}
 	.fieldWrapper input {
 	    width: 100%;
@@ -109,7 +127,7 @@
 		height: 75px;
 	}
 }
-}
+
 
 @media screen and (max-width: 405px) {
 	.skill-bar-fill {
