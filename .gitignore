@@ -10,6 +10,7 @@ __pycache__/
 
 # Virtualenv
 akt_venv/
+portfolio_env/
 
 # Hide secret key
 dev.py
