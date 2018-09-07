@@ -1,5 +1,7 @@
 * {
  box-sizing: border-box;
+ -webkit-transform:translate3d(0,0,0);
+ /*-webkit-backface-visibility: hidden;*/
 }
 *:before,
 *:after {
@@ -43,6 +45,10 @@ h1, h2, h3 {
 }
 
 /* Navigation bar */
+
+svg {
+    padding-left: 5px;
+}
 
 header {
 	width: 100%;
