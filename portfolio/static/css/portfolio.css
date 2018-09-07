@@ -187,11 +187,6 @@ header ul li a:hover {
     color: white;
 }
 
-canvas {
-	width: 100%;
-	letter-spacing: 20px;
-}
-
 
 .container-hero {
 	position: absolute;
@@ -416,6 +411,7 @@ canvas {
 	display: flex;
 	flex-wrap: wrap;
     justify-content: space-evenly;
+    margin-bottom: 65px;
 }
 
 .project {
