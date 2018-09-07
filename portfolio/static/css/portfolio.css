@@ -31,10 +31,14 @@ p {
 	line-height: 32px;
 }
 
-h1, h2, h3 {
+h1, h2, h3, .block-heading {
 	font-family: "Courier New", Courier, monospace;
 	letter-spacing: 2px;
 	color: #322D34;
+}
+
+.block-heading {
+	font-size: xx-large;
 }
 
 .inner-container {
@@ -467,7 +471,6 @@ header ul li a:hover {
 
 .carousel-cell {
     width: 100%;
-    height: 550px;
     background: #222;
     display: flex;
     align-items: center;
