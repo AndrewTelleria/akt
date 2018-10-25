@@ -12,9 +12,6 @@
 		</div>
 	</div>
 
-	<!-- {% image page.image width-1200 as image %}
-	<div class="home-header-image" style="background-image: url('{{ image.url }}')"></div> -->
-
 	<div class="inner-container">
 		<div class="section-1">
 			<h1 class="section-1-title">{{ page.featured_section_1_title }}</h1>
@@ -26,87 +23,17 @@
 				</div>							
 				<div class="homepage-skills">
 					<ul>
-						<li>
-							<div class="skill-bar">
-								<div class="skill-bar-fill" style="width: {{ page.skill_1_percentage }}%;">
-									<p class="skill">{{ page.skill_1 }}</p>					
+						{% for skill in page.skills.all %}
+							<li>
+								<div class="skill-bar">
+									<div class="skill-bar-fill" style="width: {{ skill.percentage }}%;">
+										<p class="skill">{{ skill.skill }}</p>					
+									</div>
+									<p class="percent">{{ skill.percentage }}%</p>
 								</div>
-								<p class="percent">{{ page.skill_1_percentage }}%</p>
-							</div>
-						</li>
-						<li>
-							<div class="skill-bar">
-								<div class="skill-bar-fill" style="width: {{ page.skill_2_percentage }}%;">
-									<p class="skill">{{ page.skill_2 }}</p>
-									
-								</div>
-								<p class="percent">{{ page.skill_2_percentage }}%</p>
-							</div>
-						</li>
-						<li>
-							<div class="skill-bar">
-								<div class="skill-bar-fill" style="width: {{ page.skill_3_percentage }}%;">
-									<p class="skill">{{ page.skill_3 }}</p>
-									
-								</div>
-								<p class="percent">{{ page.skill_3_percentage }}%</p>
-							</div>
-						</li>
-						<li>
-							<div class="skill-bar">
-								<div class="skill-bar-fill" style="width: {{ page.skill_4_percentage }}%;">
-									<p class="skill">{{ page.skill_4 }}</p>
-									
-								</div>
-								<p class="percent">{{ page.skill_4_percentage }}%</p>
-							</div>
-						</li>
-						<li>
-							<div class="skill-bar">
-								<div class="skill-bar-fill" style="width: {{ page.skill_5_percentage }}%;">
-									<p class="skill">{{ page.skill_5 }}</p>
-									
-								</div>
-								<p class="percent">{{ page.skill_5_percentage }}%</p>
-							</div>
-						</li>
-						<li>
-							<div class="skill-bar">
-								<div class="skill-bar-fill" style="width: {{ page.skill_6_percentage }}%;">
-									<p class="skill">{{ page.skill_6 }}</p>
-									
-								</div>
-								<p class="percent">{{ page.skill_6_percentage }}%</p>
-							</div>
-						</li>
-						<li>
-							<div class="skill-bar">
-								<div class="skill-bar-fill" style="width: {{ page.skill_7_percentage }}%;">
-									<p class="skill">{{ page.skill_7 }}</p>
-									
-								</div>
-								<p class="percent">{{ page.skill_7_percentage }}%</p>
-							</div>
-						</li>
-						<li>
-							<div class="skill-bar">
-								<div class="skill-bar-fill" style="width: {{ page.skill_8_percentage }}%;">
-									<p class="skill">{{ page.skill_8 }}</p>
-									
-								</div>
-								<p class="percent">{{ page.skill_8_percentage }}%</p>
-							</div>
-						</li>
-						<li>
-							<div class="skill-bar">
-								<div class="skill-bar-fill" style="width: {{ page.skill_9_percentage }}%;">
-									<p class="skill">{{ page.skill_9 }}</p>
-									
-								</div>
-								<p class="percent">{{ page.skill_9_percentage }}%</p>
-							</div>
-						</li>
-					</ul>
+							</li>
+						{% endfor %}
+					</ul>					
 				</div>
 			</div>			
 			<div class="homepage-projects">

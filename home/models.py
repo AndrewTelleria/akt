@@ -114,22 +114,6 @@ class StandardPage(Page):
 
 
 class HomePage(Page):
-    logo_image = models.ForeignKey(
-    		'wagtailimages.Image',
-    		null=True,
-    		blank=True,
-    		on_delete=models.SET_NULL,
-    		related_name='+',
-    		help_text='Homepage logo',
-    	)
-    image = models.ForeignKey(
-    		'wagtailimages.Image',
-    		null=True,
-    		blank=True,
-    		on_delete=models.SET_NULL,
-    		related_name='+',
-    		help_text='Homepage image',
-    	)
     hero_text = models.CharField(
     		max_length=255,
     		help_text='Write an introduction for the business',
@@ -141,107 +125,7 @@ class HomePage(Page):
     	)
     body = StreamField(
     	BaseStreamBlock(), verbose_name="Home content block", blank=True
-    )
-    skill_1 = models.CharField(
-    		null=True,
-    		blank=True,
-    		max_length=255,
-    		help_text='A techincal skill i.e. Python',
-    	)
-    skill_2 = models.CharField(
-    		null=True,
-    		blank=True,
-    		max_length=255,
-    		help_text='A techincal skill i.e. Python',
-    	)
-    skill_3 = models.CharField(
-    		null=True,
-    		blank=True,
-    		max_length=255,
-    		help_text='A techincal skill i.e. Python',
-    	)
-    skill_4 = models.CharField(
-    		null=True,
-    		blank=True,
-    		max_length=255,
-    		help_text='A techincal skill i.e. Python',
-    	)
-    skill_5 = models.CharField(
-    		null=True,
-    		blank=True,
-    		max_length=255,
-    		help_text='A techincal skill i.e. Python',
-    	)
-    skill_6 = models.CharField(
-            null=True,
-            blank=True,
-            max_length=255,
-            help_text='A techincal skill i.e. Python',
-        )
-    skill_7 = models.CharField(
-            null=True,
-            blank=True,
-            max_length=255,
-            help_text='A techincal skill i.e. Python',
-        )
-    skill_8 = models.CharField(
-            null=True,
-            blank=True,
-            max_length=255,
-            help_text='A techincal skill i.e. Python',
-        )
-    skill_9 = models.CharField(
-            null=True,
-            blank=True,
-            max_length=255,
-            help_text='A techincal skill i.e. Python',
-        )
-    skill_1_percentage = models.IntegerField(
-            null=True,
-            blank=True,
-            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
-            validators=[MinValueValidator(0), MaxValueValidator(100)]
-        )
-    skill_2_percentage = models.IntegerField(
-            null=True,
-            blank=True,
-            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
-        )
-    skill_3_percentage = models.IntegerField(
-            null=True,
-            blank=True,
-            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
-        )
-    skill_4_percentage = models.IntegerField(
-            null=True,
-            blank=True,
-            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
-        )
-    skill_5_percentage = models.IntegerField(
-            null=True,
-            blank=True,
-            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
-        )
-    skill_6_percentage = models.IntegerField(
-            null=True,
-            blank=True,
-            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
-        )
-    skill_7_percentage = models.IntegerField(
-            null=True,
-            blank=True,
-            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
-        )
-    skill_8_percentage = models.IntegerField(
-            null=True,
-            blank=True,
-            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
-        )
-    skill_9_percentage = models.IntegerField(
-            null=True,
-            blank=True,
-            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
-        )
+    )    
     promo_image = models.ForeignKey(
     		'wagtailimages.Image',
     		null=True,
@@ -305,28 +189,9 @@ class HomePage(Page):
     content_panels = Page.content_panels + [
     	DocumentChooserPanel('resume'),
     	MultiFieldPanel([
-    		FieldPanel('skill_1'),
-            FieldPanel('skill_1_percentage'),
-    		FieldPanel('skill_2'),
-            FieldPanel('skill_2_percentage'),
-    		FieldPanel('skill_3'),
-            FieldPanel('skill_3_percentage'),
-    		FieldPanel('skill_4'),
-            FieldPanel('skill_4_percentage'),
-    		FieldPanel('skill_5'),
-            FieldPanel('skill_5_percentage'),
-            FieldPanel('skill_6'),
-            FieldPanel('skill_6_percentage'),
-            FieldPanel('skill_7'),
-            FieldPanel('skill_7_percentage'),
-            FieldPanel('skill_8'),
-            FieldPanel('skill_8_percentage'),
-            FieldPanel('skill_9'),
-            FieldPanel('skill_9_percentage'),
+            InlinePanel('skills', label="Skills"),
     		], heading="Skills section"),
     	MultiFieldPanel([
-    		ImageChooserPanel('image'),
-    		ImageChooserPanel('logo_image'),
     		FieldPanel('hero_text', classname="full"),
             FieldPanel('hero_title', classname="full"),
     		], heading="Hero section"),
@@ -354,16 +219,6 @@ class HomePage(Page):
         bp_objs = BlogPage.objects.all()
         pp_list = [proj for proj in pp_objs]
         bp_list = [blog for blog in bp_objs]
-        # for pp in pp_objs:
-        #     for value in pp_list:
-        #         if value == pp.feature and pp not in pp_list:
-        #             pp_list.insert(value-1, pp)
-        #             pp_list.remove(value)
-        # for bp in bp_objs:
-        #     for value in bp_list:
-        #         if value == bp.feature and bp not in bp_list:
-        #             bp_list.insert(value-1, bp)
-        #             bp_list.remove(value)
         context['pp_features_list'] = pp_list
         context['bp_features_list'] = bp_list
         form = ContactForm()
@@ -381,8 +236,8 @@ class HomePage(Page):
             form_email = form.cleaned_data['email']
             form_message = form.cleaned_data['message']
             subject = 'Portfolio - ' + form.cleaned_data['subject'] 
-            from_email = Email('telleria.portfolio@gmail.com')
-            to_email = Email('andrewktelleria@gmail.com')
+            from_email = Email(config('DEFAULT_FROM_EMAIL'))
+            to_email = Email(config('DEFAULT_FROM_EMAIL'))
             context = {
                 'form_full_name': form_full_name,
                 'form_email': form_email,
@@ -442,6 +297,28 @@ def GalleryPage(Page):
 	subpage_types = []
 
 
+class Skills(Orderable):
+    page = ParentalKey(HomePage, on_delete=models.CASCADE, related_name='skills')
+    skill = models.CharField(
+            null=True,
+            blank=True,
+            max_length=255,
+            help_text='A techincal skill i.e. Python',
+        )
+    percentage = models.IntegerField(
+            null=True,
+            blank=True,
+            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
+        )
+
+    panels = [
+        FieldPanel('skill'),
+        FieldPanel('percentage'),
+    ]
+
+
+
+
 class HomePageImageGallery(Orderable):
 	page = ParentalKey(HomePage, on_delete=models.CASCADE, related_name='gallery_images')
 	image = models.ForeignKey(
@@ -457,41 +334,3 @@ class HomePageImageGallery(Orderable):
 	]
 
 
-class FormField(AbstractFormField):
-    """
-    Wagtailforms is a module to introduce simple forms on a Wagtail site. It
-    isn't intended as a replacement to Django's form support but as a quick way
-    to generate a general purpose data-collection form or contact form
-    without having to write code. We use it on the site for a contact form. You
-    can read more about Wagtail forms at:
-    http://docs.wagtail.io/en/latest/reference/contrib/forms/index.html
-    """
-    page = ParentalKey('FormPage', related_name='form_fields', on_delete=models.CASCADE)
-
-
-class FormPage(AbstractEmailForm):
-    image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-    body = StreamField(BaseStreamBlock())
-    thank_you_text = RichTextField(blank=True)
-
-    # Note how we include the FormField object via an InlinePanel using the
-    # related_name value
-    content_panels = AbstractEmailForm.content_panels + [
-        ImageChooserPanel('image'),
-        StreamFieldPanel('body'),
-        InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
-        MultiFieldPanel([
-            FieldRowPanel([
-                FieldPanel('from_address', classname="col6"),
-                FieldPanel('to_address', classname="col6"),
-            ]),
-            FieldPanel('subject'),
-        ], "Email"),
-    ]

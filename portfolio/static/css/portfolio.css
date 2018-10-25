@@ -286,7 +286,8 @@ header ul li a:hover {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
-	margin-top: 40px;
+	margin: auto;
+    padding-top: 40px;
 }
 
 .section-1-childpage {
