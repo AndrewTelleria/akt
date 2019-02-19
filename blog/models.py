@@ -1,40 +1,34 @@
 from django.db import models
 
-from django import forms
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db import models
 
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
-from wagtail.core.models import Page, Orderable
+from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core import blocks
 from wagtail.admin.edit_handlers import (
-    FieldPanel, 
-    InlinePanel, 
-    MultiFieldPanel, 
+    FieldPanel,
+    MultiFieldPanel,
     StreamFieldPanel,
 )
-from wagtail.embeds.blocks import EmbedBlock
-from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
-from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+
+from home.blocks import BaseStreamBlock
 
 
 class BlogIndexPage(Page):
     intro = RichTextField(blank=True)
 
     class Meta:
-    	verbose_name = "blog indexpage"
+        verbose_name = "blog indexpage"
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full")
     ]
     subpage_types = ['Blogpage']
-
 
     def get_context(self, request):
         context = super(BlogIndexPage, self).get_context(request)
@@ -44,7 +38,7 @@ class BlogIndexPage(Page):
             '-first_published_at')
         paginator = Paginator(all_resources, 5)
         page = request.GET.get('page')
-        try:            
+        try:
             resources = paginator.page(page)
         except PageNotAnInteger:
             # If page is not an integer, deliver first page.
@@ -62,10 +56,10 @@ class BlogPageTag(TaggedItemBase):
         verbose_name = "blogpage tag"
 
     content_object = ParentalKey(
-            'BlogPage',
-            related_name='tagged_items',
-            on_delete=models.CASCADE
-        )
+        'BlogPage',
+        related_name='tagged_items',
+        on_delete=models.CASCADE
+    )
 
 
 class BlogPage(Page):
@@ -92,19 +86,17 @@ class BlogPage(Page):
     )
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
-    body = StreamField([
-            ('heading', blocks.CharBlock(classname="full title")),
-            ('paragraph', blocks.RichTextBlock()),
-            ('image', ImageChooserBlock()),
-            ('video', EmbedBlock()),
-        ])
+    body = StreamField(
+        BaseStreamBlock(), verbose_name="Page body", blank=True
+    )
     image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
-        help_text='Landscape mode only; horizontal width between 1000px and 3000px.'
+        help_text="""Landscape mode only;
+            horizontal width between 1000px and 3000px."""
     )
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
@@ -120,7 +112,7 @@ class BlogPage(Page):
         index.SearchField('body'),
     ]
 
-    content_panels =  [
+    content_panels = [
         FieldPanel('title', classname="full"),
         SnippetChooserPanel('author'),
         FieldPanel('feature'),
@@ -136,27 +128,16 @@ class BlogPage(Page):
 
 class BlogTagIndexPage(Page):
 
-	class Meta:
-		verbose_name = "blogtag indexpage"
+    class Meta:
+        verbose_name = "blogtag indexpage"
 
-	def get_context(self, request):
+    def get_context(self, request):
 
-		# Filter by tag
-		tag = request.GET.get('tag')
-		blogpages = BlogPage.objects.filter(tags__name=tag)
+        # Filter by tag
+        tag = request.GET.get('tag')
+        blogpages = BlogPage.objects.filter(tags__name=tag)
 
-		# Update template context
-		context = super().get_context(request)
-		context['blogpages'] = blogpages
-		return context
-
-
-
-
-
-
-
-
-
-
-
+        # Update template context
+        context = super().get_context(request)
+        context['blogpages'] = blogpages
+        return context
