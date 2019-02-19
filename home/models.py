@@ -1,35 +1,25 @@
 import sendgrid
-import os
-import python_http_client
 from sendgrid.helpers.mail import *
 from decouple import config
 from django import forms
-from django.core.mail import send_mail
 from django.db import models
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.template.loader import get_template
-from django.core.validators import (
-        RegexValidator, 
-        MinValueValidator, 
-        MaxValueValidator
-    )
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
 from wagtail.admin.edit_handlers import (
-        FieldPanel,
-        FieldRowPanel,
-        InlinePanel,
-        MultiFieldPanel,
-        PageChooserPanel,
-        StreamFieldPanel,
-    )
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    PageChooserPanel,
+    StreamFieldPanel,
+)
 
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Collection, Page, Orderable
-from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
+from wagtail.core.models import Page, Orderable
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
@@ -42,141 +32,141 @@ from projects.models import ProjectPage
 from blog.models import BlogPage
 
 
-
 @register_snippet
 class People(ClusterableModel):
-	first_name = models.CharField("First name", max_length=254)
-	last_name = models.CharField("Last name", max_length=254)
-	job_title = models.CharField("Job title", max_length=254)
-	about = models.TextField(max_length=300)
+    first_name = models.CharField("First name", max_length=254)
+    last_name = models.CharField("Last name", max_length=254)
+    job_title = models.CharField("Job title", max_length=254)
+    about = models.TextField(max_length=300)
 
-	image = models.ForeignKey(
-			'wagtailimages.Image',
-			null=True,
-			blank=True,
-			on_delete=models.SET_NULL,
-			related_name='+',
-		)
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
 
-	panels = [
-		FieldPanel('first_name', classname="first-name"),
-		FieldPanel('last_name', classname="last-name"),
-		FieldPanel('job_title'),
-		FieldPanel('about', classname="full"),
-		ImageChooserPanel('image'),
-	]
+    panels = [
+        FieldPanel('first_name', classname="first-name"),
+        FieldPanel('last_name', classname="last-name"),
+        FieldPanel('job_title'),
+        FieldPanel('about', classname="full"),
+        ImageChooserPanel('image'),
+    ]
 
-	search_fields = Page.search_fields + [
-		index.SearchField('first_name'),
-		index.SearchField('last_name'),
-	]
+    search_fields = Page.search_fields + [
+        index.SearchField('first_name'),
+        index.SearchField('last_name'),
+    ]
 
-	@property
-	def thumb_image(self):
-		# Returns an empty string if there is no profile pic or the rendition
-		# file can't be found.
-		try:
-			return self.image.get_rendition('fill-50x50').img_tag()
-		except:
-			return ''
+    @property
+    def thumb_image(self):
+        # Returns an empty string if there is no profile pic or the rendition
+        # file can't be found.
+        try:
+            return self.image.get_rendition('fill-50x50').img_tag()
+        except:
+            return 'Nothing'
 
-	def __str__(self):
-		return '{} {}'.format(self.first_name, self.last_name)
+    def __str__(self):
+        return '{} {}'.format(self.first_name, self.last_name)
 
-	class Meta:
-		verbose_name = 'Person'
-		verbose_name_plural = 'People'
+    class Meta:
+        verbose_name = 'Person'
+        verbose_name_plural = 'People'
 
 
 class StandardPage(Page):
-	introduction = models.TextField(
-			help_text='Text to describe the page',
-			blank=True,
-		)
-	image = models.ForeignKey(
-			'wagtailimages.Image',
-			null=True,
-			blank=True,
-			on_delete=models.SET_NULL,
-			related_name='+',
-			help_text='Landscape mode only; horizontal width between 1000px and 3000px'
-		)
-	body = StreamField(
-		BaseStreamBlock(), verbose_name="Page body", blank=True
-	)
+    introduction = models.TextField(
+        help_text='Text to describe the page',
+        blank=True,
+    )
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="""Landscape mode only;
+            horizontal width between 1000px and 3000px"""
+    )
+    body = StreamField(
+        BaseStreamBlock(), verbose_name="Page body", blank=True
+    )
 
-	content_panels = Page.content_panels + [
-		FieldPanel('introduction', classname="full"),
-		StreamFieldPanel('body'),
-		ImageChooserPanel('image'),
-	]
-
+    content_panels = Page.content_panels + [
+        FieldPanel('introduction', classname="full"),
+        StreamFieldPanel('body'),
+        ImageChooserPanel('image'),
+    ]
 
 
 class HomePage(Page):
     hero_text = models.CharField(
-    		max_length=255,
-    		help_text='Write an introduction for the business',
-    	)
+        max_length=255,
+        help_text='Write an introduction for the business',
+    )
     hero_title = models.CharField(
-    		verbose_name='Hero CTA',
-    		max_length=255,
-    		help_text='Text to display on Call to Action',
-    	)
+        verbose_name='Hero CTA',
+        max_length=255,
+        help_text='Text to display on Call to Action',
+    )
     body = StreamField(
-    	BaseStreamBlock(), verbose_name="Home content block", blank=True
-    )    
+        BaseStreamBlock(), verbose_name="Home content block", blank=True
+    )
     promo_image = models.ForeignKey(
-    		'wagtailimages.Image',
-    		null=True,
-    		blank=True,
-    		on_delete=models.SET_NULL,
-    		related_name='+',
-    		help_text='Promo image',
-    	)
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text='Promo image',
+    )
     promo_title = models.CharField(
-    		null=True,
-    		blank=True,
-    		max_length=255,
-    		help_text='Title to display above the promo copy',
-    	)
+        null=True,
+        blank=True,
+        max_length=255,
+        help_text='Title to display above the promo copy',
+    )
     promo_text = RichTextField(
-    		null=True,
-    		blank=True,
-    		help_text='Write some promotional copy',
-    	)
+        null=True,
+        blank=True,
+        help_text='Write some promotional copy',
+    )
     featured_section_1_title = models.CharField(
-    		null=True,
-    		blank=True,
-    		max_length=255,
-    		help_text='Title to display above the promo copy',
-    	)
+        null=True,
+        blank=True,
+        max_length=255,
+        help_text='Title to display above the promo copy',
+    )
     featured_section_1 = models.ForeignKey(
-    		'wagtailcore.Page',
-    		null=True,
-    		blank=True,
-    		on_delete=models.SET_NULL,
-    		related_name='+',
-    		help_text='First featured section for the homepage. Will display up to '
-    		'three child names.',
-    		verbose_name='Featured section 1',
-    	)
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="""First featured section for
+            the homepage. Will display up to"""
+        'three child names.',
+        verbose_name='Featured section 1',
+    )
     featured_section_2_title = models.CharField(
-    		null=True,
-    		blank=True,
-    		max_length=255,
-    		help_text='Title to display above the promo copy',
-    	)
+        null=True,
+        blank=True,
+        max_length=255,
+        help_text='Title to display above the promo copy',
+    )
     featured_section_2 = models.ForeignKey(
-    		'wagtailcore.Page',
-    		null=True,
-    		blank=True,
-    		on_delete=models.SET_NULL,
-    		related_name='+',
-    		help_text='First featured section for the homepage. Will display up to '
-    		'three child names.',
-    		verbose_name='Featured section 1',
-    	)
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="""First featured section for
+            the homepage. Will display up to three child names.""",
+        verbose_name='Featured section 1',
+    )
     resume = models.ForeignKey(
         'wagtaildocs.Document',
         null=True,
@@ -185,32 +175,31 @@ class HomePage(Page):
         related_name='+'
     )
 
-
     content_panels = Page.content_panels + [
-    	DocumentChooserPanel('resume'),
-    	MultiFieldPanel([
+        DocumentChooserPanel('resume'),
+        MultiFieldPanel([
             InlinePanel('skills', label="Skills"),
-    		], heading="Skills section"),
-    	MultiFieldPanel([
-    		FieldPanel('hero_text', classname="full"),
+        ], heading="Skills section"),
+        MultiFieldPanel([
+            FieldPanel('hero_text', classname="full"),
             FieldPanel('hero_title', classname="full"),
-    		], heading="Hero section"),
-    	MultiFieldPanel([
-    		ImageChooserPanel('promo_image'),
-    		FieldPanel('promo_title'),
-    		FieldPanel('promo_text'),
-    		], heading="Promo section"),
-    	StreamFieldPanel('body'),
-		MultiFieldPanel([
-			MultiFieldPanel([
-				FieldPanel('featured_section_1_title'),
-				PageChooserPanel('featured_section_1'),
-			]),
-			MultiFieldPanel([
-				FieldPanel('featured_section_2_title'),
-				PageChooserPanel('featured_section_2'),
-			]),
-		], heading="Featured homepage section", classname="collapsible")
+        ], heading="Hero section"),
+        MultiFieldPanel([
+            ImageChooserPanel('promo_image'),
+            FieldPanel('promo_title'),
+            FieldPanel('promo_text'),
+        ], heading="Promo section"),
+        StreamFieldPanel('body'),
+        MultiFieldPanel([
+            MultiFieldPanel([
+                        FieldPanel('featured_section_1_title'),
+                        PageChooserPanel('featured_section_1'),
+                        ]),
+            MultiFieldPanel([
+                FieldPanel('featured_section_2_title'),
+                PageChooserPanel('featured_section_2'),
+            ]),
+        ], heading="Featured homepage section", classname="collapsible")
     ]
 
     def serve(self, request):
@@ -223,11 +212,11 @@ class HomePage(Page):
         context['bp_features_list'] = bp_list
         form = ContactForm()
         return render(request, 'home/home_page.html', {
-                'page': self,
-                'form': form,
-                'pp_features_list': pp_list,
-                'bp_features_list': bp_list,
-            })
+            'page': self,
+            'form': form,
+            'pp_features_list': pp_list,
+            'bp_features_list': bp_list,
+        })
 
     def submit_contact(request):
         form = ContactForm(request.POST)
@@ -235,7 +224,7 @@ class HomePage(Page):
             form_full_name = form.cleaned_data['full_name']
             form_email = form.cleaned_data['email']
             form_message = form.cleaned_data['message']
-            subject = 'Portfolio - ' + form.cleaned_data['subject'] 
+            subject = 'Portfolio - ' + form.cleaned_data['subject']
             from_email = Email(config('DEFAULT_FROM_EMAIL'))
             to_email = Email(config('DEFAULT_FROM_EMAIL'))
             context = {
@@ -243,73 +232,37 @@ class HomePage(Page):
                 'form_email': form_email,
                 'form_message': form_message,
             }
-            contact_message =Content("text/plain", get_template('home/contact_message.txt').render(context))
+            contact_message = Content(
+                "text/plain", get_template('home/contact_message.txt').render(context))
             try:
-                sg = sendgrid.SendGridAPIClient(apikey=config('SENDGRID_API_KEY'))
+                sg = sendgrid.SendGridAPIClient(
+                    apikey=config('SENDGRID_API_KEY'))
                 mail = Mail(from_email, subject, to_email, contact_message)
                 print(mail)
                 response = sg.client.mail.send.post(request_body=mail.get())
             except:
-                return HttpResponse({'success' : False })
-        return JsonResponse({'success' : True})
+                return HttpResponse({'success': False})
+        return JsonResponse({'success': True})
 
     def __str__(self):
-    	return self.title
-
-
-def GalleryPage(Page):
-	"""
-	This is a page to list locations from the selected Collection. We use a Q
-	object to list any collection created even if they contain no items.
-	"""
-	introduction = models.TextField(
-			help_text='Text to describe the page.',
-			blank=True)
-	image = models.ForeignKey(
-			'wagtailimages.Image',
-			null=True,
-			blank=True,
-			on_delete=models.SET_NULL,
-			related_name='+',
-			help_text='Landscape mode only; horizontal width between 1000px and 3000px.'
-		)
-	body = StreamField(
-		BaseStreamBlock(), verbose_name="Page body", blank=True
-	)
-	collection = models.ForeignKey(
-			Collection,
-			limit_choices_to=~model.Q(name__in=['Root']),
-			null=True,
-			blank=True,
-			on_delete=models.SET_NULL,
-			help_text='Select the image collection for this gallery.'
-		)
-
-	content_panels = Page.content_panels + [
-		FieldPanel('introduction', classname="full"),
-		StreamFieldPanel('body'),
-		ImageChooserPanel('image'),
-		FieldPanel('collection'),
-	]
-
-	# Defining what content type can sit under the parent. Since it's a blank
-	# array no subpage can be added
-	subpage_types = []
+        return self.title
 
 
 class Skills(Orderable):
-    page = ParentalKey(HomePage, on_delete=models.CASCADE, related_name='skills')
+    page = ParentalKey(HomePage, on_delete=models.CASCADE,
+                       related_name='skills')
     skill = models.CharField(
-            null=True,
-            blank=True,
-            max_length=255,
-            help_text='A techincal skill i.e. Python',
-        )
+        null=True,
+        blank=True,
+        max_length=255,
+        help_text='A techincal skill i.e. Python',
+    )
     percentage = models.IntegerField(
-            null=True,
-            blank=True,
-            help_text='A percentage of mastery i.e. 90 percent. Just write the number not the percentage sign.',
-        )
+        null=True,
+        blank=True,
+        help_text="""A percentage of mastery
+            i.e. 90 percent. Just write the number not the percentage sign.""",
+    )
 
     panels = [
         FieldPanel('skill'),
@@ -317,20 +270,17 @@ class Skills(Orderable):
     ]
 
 
-
-
 class HomePageImageGallery(Orderable):
-	page = ParentalKey(HomePage, on_delete=models.CASCADE, related_name='gallery_images')
-	image = models.ForeignKey(
-			'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
-		)
-	caption = models.CharField(blank=True, max_length=250)
-	logo = models.BooleanField(default=False)
+    page = ParentalKey(HomePage, on_delete=models.CASCADE,
+                       related_name='gallery_images')
+    image = models.ForeignKey(
+        'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
+    )
+    caption = models.CharField(blank=True, max_length=250)
+    logo = models.BooleanField(default=False)
 
-	panels = [
-		ImageChooserPanel('image'),
-		FieldPanel('caption'),
-		FieldPanel('logo', widget=forms.RadioSelect),
-	]
-
-
+    panels = [
+        ImageChooserPanel('image'),
+        FieldPanel('caption'),
+        FieldPanel('logo', widget=forms.RadioSelect),
+    ]
