@@ -5,9 +5,8 @@ from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core import blocks
 from wagtail.admin.edit_handlers import (
-    FieldPanel, 
-    InlinePanel, 
-    MultiFieldPanel, 
+    FieldPanel,
+    InlinePanel,
     StreamFieldPanel,
 )
 from wagtail.images.blocks import ImageChooserBlock
@@ -44,15 +43,17 @@ class ProjectPage(Page):
         choices=FEATURE_CHOICES,
         default=0,
     )
-    project_url = models.CharField(max_length=250, help_text="Make sure to include http protocol or else the link will be relative.", blank=True, null=True)
-    github = models.CharField(max_length=250, help_text="Make sure to include http protocol or else the link will be relative.", blank=True, null=True)
+    project_url = models.CharField(
+        max_length=250, help_text="Make sure to include http protocol or else the link will be relative.", blank=True, null=True)
+    github = models.CharField(
+        max_length=250, help_text="Make sure to include http protocol or else the link will be relative.", blank=True, null=True)
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = StreamField([
-            ('heading', blocks.CharBlock(classname="full title")),
-            ('paragraph', blocks.RichTextBlock()),
-            ('image', ImageChooserBlock()),
-        ])
+        ('heading', blocks.CharBlock(classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+    ])
     image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -70,7 +71,7 @@ class ProjectPage(Page):
         index.SearchField('body'),
     ]
 
-    content_panels =  [
+    content_panels = [
         FieldPanel('title', classname="full"),
         FieldPanel('intro', classname="full"),
         FieldPanel('date'),
@@ -82,11 +83,13 @@ class ProjectPage(Page):
         StreamFieldPanel('body'),
     ]
 
+
 class ProjectPageGalleryImage(Orderable):
-    page = ParentalKey(ProjectPage, on_delete=models.CASCADE, related_name='gallery_images')
+    page = ParentalKey(ProjectPage, on_delete=models.CASCADE,
+                       related_name='gallery_images')
     image = models.ForeignKey(
-            'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
-        )
+        'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
+    )
     caption = models.CharField(blank=True, max_length=250)
 
     panels = [

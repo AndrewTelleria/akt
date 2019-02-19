@@ -1,13 +1,12 @@
 from .base import *
-from .dev import SECRET_KEY
+from decouple import config
 import os
 
-SECRET_KEY = SECRET_KEY
+DEBUG = False
 
-ALLOWED_HOSTS = ['35.160.36.100', 'aktelleria.com', 'www.aktelleria.com']
-# ALLOWED_HOSTS = ['*']
+SECRET_KEY = config('SECRET_KEY')
 
-DEBUG = True
+ALLOWED_HOSTS = ['34.217.12.197', 'aktelleria.com', 'www.aktelleria.com']
 
 try:
     from .local import *
