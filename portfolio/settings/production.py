@@ -6,7 +6,7 @@ DEBUG = False
 
 SECRET_KEY = config('SECRET_KEY')
 
-ALLOWED_HOSTS = ['35.160.36.100', 'aktelleria.com', 'www.aktelleria.com']
+ALLOWED_HOSTS = ['34.217.12.197', 'aktelleria.com', 'www.aktelleria.com']
 
 try:
     from .local import *
