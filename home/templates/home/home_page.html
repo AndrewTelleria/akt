@@ -1,92 +1,86 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
-
 {% block content %}
-	<div class="hero">
-		<canvas id="canvas1"></canvas>
-		<div class="container-hero">
-			<div class="hero-row">
-				<h1>{{ page.hero_text }}</h1>
-				<h2>{{ page.hero_title }}</h2>
-			</div>
-		</div>
-	</div>
-
-	<div class="inner-container">
-		<div class="section-1">
-			<h1 class="section-1-title">{{ page.featured_section_1_title }}</h1>
-			<div class="promo-and-skills">
-				<div class="promo">
-					{% image page.promo_image fill-600x450-c100 %}
-					<h3 class="promo-title">{{ page.promo_title }}</h3>
-					<p class="promo-text">{{ page.promo_text|richtext }}</p>
-				</div>							
-				<div class="homepage-skills">
-					<ul>
-						{% for skill in page.skills.all %}
-							<li>
-								<div class="skill-bar">
-									<div class="skill-bar-fill" style="width: {{ skill.percentage }}%;">
-										<p class="skill">{{ skill.skill }}</p>					
-									</div>
-									<p class="percent">{{ skill.percentage }}%</p>
-								</div>
-							</li>
-						{% endfor %}
-					</ul>					
-				</div>
-			</div>			
-			<div class="homepage-projects">
-				{% for childpage in pp_features_list %}
-					<a href="{{ childpage.url }}" class="section-1-childpage">
-						{% image childpage.image fill-500x400-c100 %}
-						<div class="section-1-childpage-text">
-							<h2 class="section-1-childpage-title">{{ childpage.title }}</h2>
-							<p class="section-1-childpage-p">{{ childpage.intro }}</p>
-						</div>
-					</a>
-				{% endfor %}
-			</div>
-		</div>
-	</div>
-	
-	<div class="inner-container">
-		{% if bp_features_list > 0 %}
-		<div class="section-2">
-			<h1 class="section-2-title">{{ page.featured_section_2_title }}</h1>
-			<div class="homepage-blog">
-				{% for childpage in bp_features_list %}
-					<a href="{{ childpage.url }}" class="section-2-childpage">
-						{% image childpage.image fill-430x210-c10 %}
-						<div class="section-2-childpage-text">
-							<h2 class="section-2-childpage-title">{{ childpage.title }}</h2>
-							<p class="section-2-childpage-p">{{ childpage.intro }}</p>
-						</div>
-					</a>
-				{% endfor %}
-			</div>
-		</div>
-		{% endif %}
-
-
-		<div class="section-3">									
-			<div class="homepage-body">
-				{{ page.body }}
-			</div>
-			<div class="resume">
-				<a href="{{ page.resume.url }}">Download Resume</a>
-			</div>
-			<div class="homepage-contact">
-				<h1>Contact</h1>
-				<form action="." method="POST" id="contact-form">
-					{% csrf_token %}
-					{{ form.as_p }}
-					<div class="contact-button">
-				        <button type="submit" id="submit">Submit</button>
-				    </div>
-			    </form>
-			    
-			</div>
-		</div>
-	</div>
+<div class="hero">
+    <canvas id="canvas1"></canvas>
+    <div class="container-hero">
+        <div class="hero-row">
+            <h1>{{ page.hero_text }}</h1>
+            <h2>{{ page.hero_title }}</h2>
+        </div>
+    </div>
+</div>
+<div class="inner-container">
+    <div class="section-1">
+        <h1 class="section-1-title">{{ page.featured_section_1_title }}</h1>
+        <div class="promo-and-skills">
+            <div class="promo">
+                {% image page.promo_image fill-600x450-c100 %}
+                <h3 class="promo-title">{{ page.promo_title }}</h3>
+                <p class="promo-text">{{ page.promo_text|richtext }}</p>
+            </div>
+            <div class="homepage-skills">
+                <ul>
+                    {% for skill in page.skills.all %}
+                    <li>
+                        <div class="skill-bar">
+                            <div class="skill-bar-fill" style="width: {{ skill.percentage }}%;">
+                                <p class="skill">{{ skill.skill }}</p>
+                            </div>
+                            <p class="percent">{{ skill.percentage }}%</p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="homepage-projects">
+            {% for childpage in pp_features_list %}
+            <a href="{{ childpage.url }}" class="section-1-childpage">
+                {% image childpage.image fill-500x400-c100 %}
+                <div class="section-1-childpage-text">
+                    <h2 class="section-1-childpage-title">{{ childpage.title }}</h2>
+                    <p class="section-1-childpage-p">{{ childpage.intro }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="inner-container">
+    {% if bp_features_list > 0 %}
+    <div class="section-2">
+        <h1 class="section-2-title">{{ page.featured_section_2_title }}</h1>
+        <div class="homepage-blog">
+            {% for childpage in bp_features_list %}
+            <a href="{{ childpage.url }}" class="section-2-childpage">
+                {% image childpage.image fill-430x210-c10 %}
+                <div class="section-2-childpage-text">
+                    <h2 class="section-2-childpage-title">{{ childpage.title }}</h2>
+                    <p class="section-2-childpage-p">{{ childpage.intro }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    <div class="section-3">
+        <div class="homepage-body">
+            {{ page.body }}
+        </div>
+        <div class="resume">
+            <a href="{{ page.resume.url }}">Download Resume</a>
+        </div>
+        <div class="homepage-contact">
+            <h1>Contact</h1>
+            <form action="." method="POST" id="contact-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="contact-button">
+                    <button type="submit" id="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

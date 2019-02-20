@@ -44,7 +44,7 @@ h1, h2, h3, .block-heading {
 .inner-container {
 	max-width: 1200px;
 	margin: auto;
-	padding: 18px;
+	padding: 18px 18px 70px 18px;
 }
 
 /* Navigation bar */
@@ -329,7 +329,7 @@ header ul li a:hover {
 	font-size: 65px;
     font-weight: 300;
     margin: 0;
-    padding: 50px 0 50px 0; 
+    padding: 50px 0 50px 0;
 }
 
 .homepage-blog {
@@ -357,7 +357,7 @@ header ul li a:hover {
 }
 
 .section-2-childpage-text {
-	
+
 }
 
 /* Section 3 */
@@ -622,7 +622,7 @@ form button:active {
 
 /* Footer */
 
-footer {	
+footer {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
@@ -634,7 +634,7 @@ footer ul {
 	display: flex;
 	justify-content: center;
     margin: 0;
-    padding: 20px;	
+    padding: 20px;
 }
 
 footer a {
