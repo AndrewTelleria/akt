@@ -24,7 +24,7 @@ html, body{
 	position: relative;
 }
 
-p {
+p, ul, ol, li {
 	color: #676161;
 	font-family: Tahoma, Geneva, sans-serif;
 	letter-spacing: 2px;
