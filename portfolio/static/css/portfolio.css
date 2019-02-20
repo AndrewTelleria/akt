@@ -44,7 +44,7 @@ h1, h2, h3, .block-heading {
 .inner-container {
 	max-width: 1200px;
 	margin: auto;
-	padding: 18px 18px 70px 18px;
+	padding: 18px;
 }
 
 /* Navigation bar */
@@ -515,6 +515,12 @@ header ul li a:hover {
 }
 
 /* Blogpost page */
+
+.inner-container-blog {
+	max-width: 1200px;
+	margin: auto;
+	padding-bottom: 70px;
+}
 
 .blogpost-header-image {
 	width: 100%;
