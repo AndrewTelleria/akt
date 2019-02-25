@@ -5,7 +5,7 @@
 {% block body_class %}template-blogpage{% endblock %}
 
 {% block content %}
-<div class="inner-container project-page-container">
+<div class="inner-container-project">
 	<h1>{{ page.title }}</h1>
 	{% if page.github %}
 		<h3><a href="{{ page.github }}">GitHub</a></h3>
@@ -16,7 +16,7 @@
 	<p>{{ page.body }}</p>
 
 	<div class="main-carousel">
-		{% for item in page.gallery_images.all %}			
+		{% for item in page.gallery_images.all %}
 			<div class="carousel-cell">
 				{% image item.image width-900 as p_image %}
 				<img src="{{ p_image.url }}">
@@ -26,5 +26,5 @@
 	</div>
 	<p class="project-page-return"><a href="{{ page.get_parent.url }}">Return to Projects</a></p>
 </div>
-	
+
 {% endblock %}
