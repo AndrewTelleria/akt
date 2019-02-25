@@ -44,7 +44,7 @@ h1, h2, h3, .block-heading {
 .inner-container {
 	max-width: 1200px;
 	margin: auto;
-	padding: 100px;
+	padding: 18px;
 }
 
 /* Navigation bar */
@@ -444,6 +444,11 @@ header ul li a:hover {
 
 /* Project Page */
 
+.inner-container-project {
+	max-width: 1200px;
+	margin: auto;
+	padding: 100px 100px 70px 100px;
+}
 
 .overlay {
 	position: absolute;
