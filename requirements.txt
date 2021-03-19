@@ -14,7 +14,7 @@ django-pipeline==1.6.14
 django-taggit==0.23.0
 django-treebeard==4.3
 django-webpack-loader==0.6.0
-djangorestframework==3.8.2
+djangorestframework==3.11.2
 docker==3.7.0
 docker-pycreds==0.4.0
 dockerpty==0.4.1
