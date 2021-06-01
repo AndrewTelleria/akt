@@ -45,7 +45,7 @@ tabulate==0.7.5
 termcolor==1.1.0
 texttable==0.9.1
 Unidecode==0.4.21
-urllib3==1.24.1
+urllib3==1.26.5
 wagtail==2.4
 wagtailcodeblock==1.14.0.0
 wagtailfontawesome==1.1.3
